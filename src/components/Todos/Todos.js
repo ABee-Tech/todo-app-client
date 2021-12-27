@@ -5,12 +5,7 @@ import Todo from "./Todo";
 import { fetchTodos, deleteTodo } from "../../redux/actions/todos/todoActions";
 import Loading from "../Loading/Loading";
 
-import tw from "twin.macro";
-import styled from "styled-components";
-
-const Heading = styled.h1`
-  ${tw`text-sm font-bold text-gray-400`}
-`;
+import { Heading, HeadingWithAction } from "../../styles/styles";
 
 const Todos = () => {
   const dispatch = useDispatch();
@@ -30,19 +25,23 @@ const Todos = () => {
   return (
     <div>
       {loading && <Loading />}
-      {todos !== undefined && todos.length === 0 ? (
-        <Heading className="uppercase">No tasks for today.</Heading>
-      ) : (
-        <div className="row">
+      <div className="row">
+        <HeadingWithAction>
           <Heading className="uppercase">Today's Tasks</Heading>
-          <div className="col">
-            {todos &&
-              todos.map((todo) => {
-                return <Todo key={todo.id} todo={todo} />;
-              })}
-          </div>
+          <Link to="/addtodo" className="uppercase">
+            + Add Todo
+          </Link>
+        </HeadingWithAction>
+        <div className="col">
+          {todos && todos.length ? (
+            todos.map((todo) => {
+              return <Todo key={todo.id} todo={todo} />;
+            })
+          ) : (
+            <p>No Todos</p>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 };
