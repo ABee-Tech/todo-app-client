@@ -15,6 +15,9 @@ import {
   TODO_UPDATE_SUCCESS,
   TODO_UPDATE_REQUEST,
   TODO_UPDATE_FAIL,
+  TODO_COMPLETE_SUCCESS,
+  TODO_COMPLETE_FAIL,
+  TODO_COMPLETE_REQUEST,
 } from "../actionTypes";
 
 //Create todo
@@ -174,6 +177,37 @@ export const updateTodo = (id, todoData) => {
     } catch (error) {
       dispatch({
         type: TODO_UPDATE_FAIL,
+        loading: false,
+        error: error.response && error.response.data.message,
+      });
+    }
+  };
+};
+
+//COMPLETE TODO
+
+export const completeTodo = (id, completed) => {
+  return async (dispatch) => {
+    try {
+      dispatch({
+        type: TODO_COMPLETE_REQUEST,
+        loading: true,
+      });
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      await axiosInstance.put(`/api/todos/${id}`, { completed }, config);
+      const { data: newData } = await axiosInstance.get(`/api/todos`);
+      dispatch({
+        type: TODO_COMPLETE_SUCCESS,
+        payload: newData,
+      });
+    } catch (error) {
+      dispatch({
+        type: TODO_COMPLETE_FAIL,
         loading: false,
         error: error.response && error.response.data.message,
       });
