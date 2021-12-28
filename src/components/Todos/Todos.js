@@ -1,6 +1,4 @@
 import React from "react";
-
-import Loading from "../Loading/Loading";
 import TodaysTasks from "./TodaysTasks";
 
 const Todos = () => {
