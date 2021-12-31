@@ -26,11 +26,11 @@ const Todo = ({ todo }) => {
     setIsChecked(todo.completed);
   }, [todo.completed]);
   return (
-    <div
-      className="width-full bg-slate-50 flex justify-between py-3 px-3 rounded-lg shadow-md cursor-pointer hover:shadow-lg ease-in duration-150 my-2"
-      onClick={toggleCheck}
-    >
-      <TodoHolder className="flex justify-between">
+    <div className="width-full bg-slate-50 flex justify-between rounded-lg shadow-md hover:shadow-lg ease-in duration-150 my-2">
+      <TodoHolder
+        className="flex justify-between py-3 px-3 cursor-pointer flex-1"
+        onClick={toggleCheck}
+      >
         <div className="flex items-center">
           <div
             className={`h-5 w-5 rounded-full border-2 flex justify-center items-center mr-2 border-purple-500 ${
@@ -53,7 +53,7 @@ const Todo = ({ todo }) => {
         </div>
       </TodoHolder>
       <button
-        className="text-red-300"
+        className="text-red-300 px-3"
         onClick={() => {
           dispatch(deleteTodo(todo.id));
         }}
