@@ -14,9 +14,9 @@ import {
   USER_UPDATE_REQUEST,
   USER_UPDATE_SUCCESS,
   USER_UPDATE_FAIL,
-  FETCH_USERS_REQUEST,
-  FETCH_USERS_FAIL,
-  FETCH_USERS_SUCCESS,
+  USER_FETCH_REQUEST,
+  USER_FETCH_FAIL,
+  USER_FETCH_SUCCESS,
 } from "../actionTypes";
 
 export const registerUser = (name, email, password, role) => {
@@ -175,7 +175,7 @@ export const fetchUsers = () => {
   return async (dispatch) => {
     try {
       dispatch({
-        type: FETCH_USERS_REQUEST,
+        type: USER_FETCH_REQUEST,
         loading: true,
       });
       const config = {
@@ -188,12 +188,12 @@ export const fetchUsers = () => {
         config
       );
       dispatch({
-        type: FETCH_USERS_SUCCESS,
+        type: USER_FETCH_SUCCESS,
         payload: data,
       });
     } catch (error) {
       dispatch({
-        type: FETCH_USERS_FAIL,
+        type: USER_FETCH_FAIL,
         error: error.response && error.response.data.message,
       });
     }

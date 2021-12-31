@@ -1,14 +1,14 @@
 import { axiosInstance } from "../../utils/axios";
 import {
-  CREATE_TODO_FAIL,
-  CREATE_TODO_REQUEST,
-  CREATE_TODO_SUCCESS,
-  FETCH_TODO_FAIL,
-  FETCH_TODO_REQUEST,
-  FETCH_TODO_SUCCESS,
-  DELETE_TODO_FAIL,
-  DELETE_TODO_SUCCESS,
-  DELETE_TODO_REQUEST,
+  TODO_CREATE_FAIL,
+  TODO_CREATE_REQUEST,
+  TODO_CREATE_SUCCESS,
+  TODO_FETCH_FAIL,
+  TODO_FETCH_REQUEST,
+  TODO_FETCH_SUCCESS,
+  TODO_DELETE_FAIL,
+  TODO_DELETE_SUCCESS,
+  TODO_DELETE_REQUEST,
   TODO_DETAIL_SUCCESS,
   TODO_DETAIL_FAIL,
   TODO_DETAIL_REQUEST,
@@ -26,7 +26,7 @@ export const createTodo = (todoData) => {
   return async (dispatch) => {
     try {
       dispatch({
-        type: CREATE_TODO_REQUEST,
+        type: TODO_CREATE_REQUEST,
         loading: true,
       });
       const config = {
@@ -41,12 +41,12 @@ export const createTodo = (todoData) => {
       );
 
       dispatch({
-        type: CREATE_TODO_SUCCESS,
+        type: TODO_CREATE_SUCCESS,
         payload: data,
       });
     } catch (error) {
       dispatch({
-        type: CREATE_TODO_FAIL,
+        type: TODO_CREATE_FAIL,
         payload: error.response && error.response.data.message,
       });
     }
@@ -59,7 +59,7 @@ export const fetchTodos = () => {
   return async (dispatch) => {
     try {
       dispatch({
-        type: FETCH_TODO_REQUEST,
+        type: TODO_FETCH_REQUEST,
         loading: true,
       });
       const config = {
@@ -73,12 +73,12 @@ export const fetchTodos = () => {
       );
 
       dispatch({
-        type: FETCH_TODO_SUCCESS,
+        type: TODO_FETCH_SUCCESS,
         payload: data,
       });
     } catch (error) {
       dispatch({
-        type: FETCH_TODO_FAIL,
+        type: TODO_FETCH_FAIL,
         payload: error.response && error.response.data.message,
       });
     }
@@ -91,7 +91,7 @@ export const deleteTodo = (id) => {
   return async (dispatch) => {
     try {
       dispatch({
-        type: DELETE_TODO_REQUEST,
+        type: TODO_DELETE_REQUEST,
         loading: true,
       });
 
@@ -102,18 +102,18 @@ export const deleteTodo = (id) => {
       };
       const { data } = await axiosInstance.delete(`/api/todos/${id}`, config);
       dispatch({
-        type: DELETE_TODO_SUCCESS,
+        type: TODO_DELETE_SUCCESS,
         payload: data,
       });
 
       const { data: newData } = await axiosInstance.get(`/api/todos`, config);
       dispatch({
-        type: FETCH_TODO_SUCCESS,
+        type: TODO_FETCH_SUCCESS,
         payload: newData,
       });
     } catch (error) {
       dispatch({
-        type: DELETE_TODO_FAIL,
+        type: TODO_DELETE_FAIL,
         loading: false,
         payload: error.response && error.response.data.message,
       });

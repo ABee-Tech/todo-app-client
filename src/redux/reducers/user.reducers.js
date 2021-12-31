@@ -9,15 +9,15 @@ import {
   USER_PROFILE_SUCCESS,
   USER_PROFILE_REQUEST,
   USER_PROFILE_FAIL,
-  FETCH_USERS_REQUEST,
-  FETCH_USERS_FAIL,
-  FETCH_USERS_SUCCESS,
+  USER_FETCH_REQUEST,
+  USER_FETCH_FAIL,
+  USER_FETCH_SUCCESS,
   USER_UPDATE_FAIL,
   USER_UPDATE_REQUEST,
   USER_UPDATE_SUCCESS,
 } from "../actionTypes";
 
-export const userReducer = (state = {}, action) => {
+export const userRegisterReducer = (state = {}, action) => {
   switch (action.type) {
     // Register
     case USER_REGISTER_REQUEST:
@@ -32,6 +32,13 @@ export const userReducer = (state = {}, action) => {
         loading: false,
         error: action.payload,
       };
+    default:
+      return state;
+  }
+};
+
+export const userLoginReducer = (state = {}, action) => {
+  switch (action.type) {
     // Login
     case USER_LOGIN_REQUEST:
       return {
@@ -47,6 +54,13 @@ export const userReducer = (state = {}, action) => {
         loading: false,
         error: action.payload,
       };
+    default:
+      return state;
+  }
+};
+
+export const userLogoutReducer = (state = {}, action) => {
+  switch (action.type) {
     // Logout
     case USER_LOGOUT:
       return {};
@@ -80,13 +94,13 @@ export const userProfileReducer = (state = {}, action) => {
 export const usersListReducer = (state = [], action) => {
   switch (action.type) {
     // Register
-    case FETCH_USERS_REQUEST:
+    case USER_FETCH_REQUEST:
       return { loading: true };
-    case FETCH_USERS_SUCCESS:
+    case USER_FETCH_SUCCESS:
       return {
         users: action.payload,
       };
-    case FETCH_USERS_FAIL:
+    case USER_FETCH_FAIL:
       return {
         loading: false,
         error: action.payload,

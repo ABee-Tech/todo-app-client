@@ -2,19 +2,19 @@ import {
   TODO_COMPLETE_REQUEST,
   TODO_COMPLETE_SUCCESS,
   TODO_COMPLETE_FAIL,
-  CREATE_TODO_FAIL,
-  CREATE_TODO_REQUEST,
-  CREATE_TODO_SUCCESS,
+  TODO_CREATE_FAIL,
+  TODO_CREATE_REQUEST,
+  TODO_CREATE_SUCCESS,
   TODO_DETAIL_FAIL,
   TODO_DETAIL_REQUEST,
   TODO_DETAIL_SUCCESS,
-  FETCH_TODO_FAIL,
-  FETCH_TODO_REQUEST,
-  FETCH_TODO_SUCCESS,
+  TODO_FETCH_FAIL,
+  TODO_FETCH_REQUEST,
+  TODO_FETCH_SUCCESS,
 } from "../actionTypes";
 
 export const completedTodoReducer = (
-  state = { data: [], error: [] },
+  state = { data: [], error: [], loading: false },
   action
 ) => {
   switch (action.type) {
@@ -39,16 +39,16 @@ export const completedTodoReducer = (
 
 export const createdTodoReducer = (state = {}, action) => {
   switch (action.type) {
-    case CREATE_TODO_REQUEST:
+    case TODO_CREATE_REQUEST:
       return {
         loading: true,
       };
-    case CREATE_TODO_SUCCESS:
+    case TODO_CREATE_SUCCESS:
       return {
         todo: action.payload,
         loading: false,
       };
-    case CREATE_TODO_FAIL:
+    case TODO_CREATE_FAIL:
       return {
         loading: false,
         error: action.payload,
@@ -81,16 +81,16 @@ export const todoDetailReducer = (state = {}, action) => {
 
 export const todosListReducer = (state = [], action) => {
   switch (action.type) {
-    case FETCH_TODO_REQUEST:
+    case TODO_FETCH_REQUEST:
       return {
         loading: true,
       };
-    case FETCH_TODO_SUCCESS:
+    case TODO_FETCH_SUCCESS:
       return {
         todos: action.payload,
         loading: false,
       };
-    case FETCH_TODO_FAIL:
+    case TODO_FETCH_FAIL:
       return {
         loading: false,
         error: action.payload,
