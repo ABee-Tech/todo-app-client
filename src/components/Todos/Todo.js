@@ -31,7 +31,7 @@ const Todo = ({ todo }) => {
         className="flex justify-between py-3 px-3 cursor-pointer flex-1"
         onClick={toggleCheck}
       >
-        <div className="flex items-center">
+        <div className="flex items-center select-none">
           <div
             className={`h-5 w-5 rounded-full border-2 flex justify-center items-center mr-2 border-purple-500 ${
               !isChecked && `bg-grey-500 border-grey-500`
@@ -53,7 +53,7 @@ const Todo = ({ todo }) => {
         </div>
       </TodoHolder>
       <button
-        className="text-red-300 px-3"
+        className="text-red-300 px-3 rounded-lg"
         onClick={() => {
           dispatch(deleteTodo(todo.id));
         }}
