@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../../redux/actions/users/userActions";
+import { loginUser } from "../../redux/actions/user.actions";
 import ErrorMessage from "../DisplayMessage/ErrorMessage";
 import Loading from "../Loading/Loading";
 

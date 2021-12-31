@@ -1,4 +1,4 @@
-import { axiosInstance } from "../axios";
+import { axiosInstance } from "../../utils/axios";
 import {
   CREATE_TODO_FAIL,
   CREATE_TODO_REQUEST,
@@ -47,7 +47,7 @@ export const createTodo = (todoData) => {
     } catch (error) {
       dispatch({
         type: CREATE_TODO_FAIL,
-        error: error.response && error.response.data.message,
+        payload: error.response && error.response.data.message,
       });
     }
   };
@@ -79,7 +79,7 @@ export const fetchTodos = () => {
     } catch (error) {
       dispatch({
         type: FETCH_TODO_FAIL,
-        error: error.response && error.response.data.message,
+        payload: error.response && error.response.data.message,
       });
     }
   };
@@ -115,7 +115,7 @@ export const deleteTodo = (id) => {
       dispatch({
         type: DELETE_TODO_FAIL,
         loading: false,
-        error: error.response && error.response.data.message,
+        payload: error.response && error.response.data.message,
       });
     }
   };
@@ -147,7 +147,7 @@ export const fetchTodo = (id, todoData) => {
     } catch (error) {
       dispatch({
         type: TODO_DETAIL_FAIL,
-        error: error.response && error.response.data.message,
+        payload: error.response && error.response.data.message,
       });
     }
   };
@@ -178,7 +178,7 @@ export const updateTodo = (id, todoData) => {
       dispatch({
         type: TODO_UPDATE_FAIL,
         loading: false,
-        error: error.response && error.response.data.message,
+        payload: error.response && error.response.data.message,
       });
     }
   };
@@ -209,7 +209,7 @@ export const completeTodo = (id, completed) => {
       dispatch({
         type: TODO_COMPLETE_FAIL,
         loading: false,
-        error: error.response && error.response.data.message,
+        payload: error.response && error.response.data.message,
       });
     }
   };

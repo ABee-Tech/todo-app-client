@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Loading from "../Loading/Loading";
 import Todo from "./Todo";
 
-import { fetchTodos, deleteTodo } from "../../redux/actions/todos/todoActions";
+import { fetchTodos, deleteTodo } from "../../redux/actions/todo.actions";
 import { Heading, HeadingWithAction } from "../../styles/styles";
 import InfoMessage from "../DisplayMessage/InfoMessage";
 

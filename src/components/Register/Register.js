@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./Register.css";
-import { registerUser } from "../../redux/actions/users/userActions";
+import { registerUser } from "../../redux/actions/user.actions";
 import Loading from "../Loading/Loading";
 import ErrorMessage from "../DisplayMessage/ErrorMessage";
 

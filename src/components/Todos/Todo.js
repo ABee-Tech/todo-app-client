@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  deleteTodo,
-  completeTodo,
-} from "../../redux/actions/todos/todoActions";
+import { deleteTodo, completeTodo } from "../../redux/actions/todo.actions";
 import { useDispatch } from "react-redux";
 import { BsCheckLg } from "react-icons/bs";
 import { BiTrash } from "react-icons/bi";

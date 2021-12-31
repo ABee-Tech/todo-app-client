@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { createTodo } from "../../redux/actions/todos/todoActions";
+import { createTodo } from "../../redux/actions/todo.actions";
 import { useDispatch, useSelector } from "react-redux";
 
 const AddTodo = ({ history }) => {
