@@ -55,7 +55,7 @@ const Todo = ({ todo }) => {
       <button
         className="text-red-300 px-3 rounded-lg"
         onClick={() => {
-          dispatch(deleteTodo(todo.id));
+          dispatch(deleteTodo(todo._id));
         }}
       >
         <BiTrash className="text-lg" />
