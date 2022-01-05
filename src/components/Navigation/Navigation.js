@@ -17,7 +17,7 @@ const NavLinkBtn = styled(NavLink)`
   ${tw`text-white hover:text-white focus:text-white active:text-white hover:no-underline focus:no-underline active:no-underline hover:bg-blue-200 focus:bg-blue-200 rounded-lg bg-darkblue-400 flex px-3 py-2 my-1 font-semibold text-sm`}
 `;
 const NavLinkNav = styled(NavLink)`
-  ${tw`bg-darkblue-800 flex items-center text-white font-light my-2 py-2 px-2 hover:bg-darkblue-600 focus:bg-darkblue-600 rounded-lg`}
+  ${tw`bg-darkblue-800 flex items-center text-white font-light my-2 py-2 px-3 hover:bg-darkblue-600 focus:bg-darkblue-600 rounded-lg`}
   & svg {
     ${tw`mr-3 text-bluish-700 text-xl`}
   }
