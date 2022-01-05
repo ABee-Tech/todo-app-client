@@ -14,7 +14,7 @@ function TodaysTasks() {
   useEffect(() => {
     dispatch(fetchTodos());
   }, [dispatch]);
-  if (loading) return <Loading />;
+  if (loading) return <Loading className="text-grey-500" />;
   return (
     <div className="row">
       <HeadingWithAction>
