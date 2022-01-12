@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "./Home.css";
-import Todos from "../Todos/Todos";
+import Todos from "../../components/Todos/Todos";
 
 const Home = () => {
   useEffect(() => {
