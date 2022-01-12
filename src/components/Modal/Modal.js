@@ -1,7 +1,8 @@
 import { useState, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
+import { GrClose } from "react-icons/gr";
 
-function Modal() {
+function Modal({ title, description, children, buttons }) {
   let [isOpen, setIsOpen] = useState(true);
 
   return (
@@ -32,19 +33,27 @@ function Modal() {
             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
-            <div className="relative bg-white rounded max-w-sm mx-auto">
-              <Dialog.Title>Complete your order</Dialog.Title>
+            <div className="relative bg-white rounded-lg max-w-md px-5 py-3">
+              <div className="border-b py-1 flex justify-between items-center">
+                <Dialog.Title className="font-bold text-lg m-0">
+                  {title}
+                </Dialog.Title>
+                <GrClose
+                  onClick={() => setIsOpen(false)}
+                  className="cursor-pointer"
+                />
+              </div>
 
-              <Dialog.Description>
-                This will permanently deactivate your account
-              </Dialog.Description>
-              <p>
-                Are you sure you want to deactivate your account? All of your
-                data will be permanently removed. This action cannot be undone.
-              </p>
+              <div className="my-2">
+                {description && (
+                  <Dialog.Description className="mb-5 text-gray-500 font-semibold">
+                    {description}
+                  </Dialog.Description>
+                )}
+                <div className="my-1">{children}</div>
+              </div>
 
-              <button onClick={() => setIsOpen(false)}>Deactivate</button>
-              <button onClick={() => setIsOpen(false)}>Cancel</button>
+              <Buttons buttons={buttons} />
             </div>
           </Transition.Child>
         </div>
@@ -52,5 +61,23 @@ function Modal() {
     </Transition.Root>
   );
 }
+
+const Buttons = ({ buttons }) => {
+  return (
+    <div className="flex justify-start">
+      {buttons.map((button, index) => {
+        return (
+          <button
+            key={index}
+            onClick={button.onClick}
+            className="text-white bg-blue-300 px-4 py-2 rounded-lg mr-2"
+          >
+            {button.name}
+          </button>
+        );
+      })}
+    </div>
+  );
+};
 
 export default Modal;
