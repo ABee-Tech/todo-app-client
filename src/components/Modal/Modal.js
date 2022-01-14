@@ -1,15 +1,13 @@
-import { useState, Fragment } from "react";
+import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { GrClose } from "react-icons/gr";
 
-function Modal({ title, description, children, buttons }) {
-  let [isOpen, setIsOpen] = useState(true);
-
+function Modal({ title, description, children, open = true, setOpen }) {
   return (
-    <Transition.Root show={isOpen} as={Fragment}>
+    <Transition.Root show={open} as={Fragment}>
       <Dialog
-        open={isOpen}
-        onClose={() => setIsOpen(false)}
+        open={open}
+        onClose={() => setOpen(false)}
         className="fixed z-10 inset-0 overflow-y-auto"
       >
         <div className="flex items-center justify-center min-h-screen">
@@ -33,13 +31,18 @@ function Modal({ title, description, children, buttons }) {
             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
-            <div className="relative bg-white rounded-lg max-w-md px-5 py-3">
+            <div
+              className="relative bg-white rounded-lg max-w-md px-5 py-3"
+              style={{
+                width: "500px",
+              }}
+            >
               <div className="border-b py-1 flex justify-between items-center">
                 <Dialog.Title className="font-bold text-lg m-0">
                   {title}
                 </Dialog.Title>
                 <GrClose
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => setOpen(false)}
                   className="cursor-pointer"
                 />
               </div>
@@ -52,8 +55,6 @@ function Modal({ title, description, children, buttons }) {
                 )}
                 <div className="my-1">{children}</div>
               </div>
-
-              <Buttons buttons={buttons} />
             </div>
           </Transition.Child>
         </div>
@@ -61,23 +62,5 @@ function Modal({ title, description, children, buttons }) {
     </Transition.Root>
   );
 }
-
-const Buttons = ({ buttons }) => {
-  return (
-    <div className="flex justify-start">
-      {buttons.map((button, index) => {
-        return (
-          <button
-            key={index}
-            onClick={button.onClick}
-            className="text-white bg-blue-300 px-4 py-2 rounded-lg mr-2"
-          >
-            {button.name}
-          </button>
-        );
-      })}
-    </div>
-  );
-};
 
 export default Modal;
