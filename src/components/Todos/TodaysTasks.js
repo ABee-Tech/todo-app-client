@@ -1,14 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import Loading from "../Loading/Loading";
 import Todo from "./Todo";
 
 import { fetchTodos } from "../../redux/actions/todo.actions";
-import { Heading, HeadingWithAction } from "../../styles/styles";
+import { Heading, HeadingWithAction, LinkButton } from "../../styles/styles";
 import InfoMessage from "../DisplayMessage/InfoMessage";
+import Modal from "../Modal/Modal";
+import AddTodo from "./AddTodo";
 
 function TodaysTasks() {
+  const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const { todos, loading } = useSelector((state) => state.todosList);
   useEffect(() => {
@@ -17,11 +19,12 @@ function TodaysTasks() {
   if (loading) return <Loading className="text-grey-500" />;
   return (
     <div className="row">
+      <Modal title="Add Todo" open={showModal} setOpen={setShowModal}>
+        <AddTodo />
+      </Modal>
       <HeadingWithAction>
         <Heading className="uppercase">Today's Tasks</Heading>
-        <Link to="/addtodo" className="uppercase">
-          + Add Todo
-        </Link>
+        <LinkButton onClick={() => setShowModal(true)}>+ Add Todo</LinkButton>
       </HeadingWithAction>
       <div className="col">
         {todos && todos.length ? (
