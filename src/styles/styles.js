@@ -11,7 +11,7 @@ export const LinkButton = styled.button`
   ${tw`text-sm uppercase font-bold text-bluish-500 hover:text-bluish-800 hover:underline`}
 `;
 export const PrimaryButton = styled.button`
-  ${tw`text-white bg-blue-300 px-4 py-2 rounded-lg mr-2`}
+  ${tw`text-white bg-blue-400 hocus:bg-blue-500 px-4 py-2 rounded-lg mr-2`}
 `;
 
 export const ErrorMessage = styled.p`
