@@ -2,9 +2,7 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import {
-  userRegisterReducer,
-  userLoginReducer,
-  userLogoutReducer,
+  userInfoReducer,
   userProfileReducer,
   userUpdateReducer,
   usersListReducer,
@@ -18,9 +16,7 @@ import {
 const middleware = [thunk];
 
 const reducer = combineReducers({
-  userRegister: userRegisterReducer,
-  userLogin: userLoginReducer,
-  userLogout: userLogoutReducer,
+  userInfo: userInfoReducer,
   userProfile: userProfileReducer,
   updatedUser: userUpdateReducer,
   todoCreated: createdTodoReducer,
@@ -39,10 +35,10 @@ const reducer = combineReducers({
 
 const userAuthFromStorage = localStorage.getItem("userAuthData")
   ? JSON.parse(localStorage.getItem("userAuthData"))
-  : null;
+  : {};
 
 const initialState = {
-  userLogin: { userInfo: userAuthFromStorage },
+  userInfo: { loading: false, userInfo: userAuthFromStorage, error: "" },
 };
 
 const store = createStore(
