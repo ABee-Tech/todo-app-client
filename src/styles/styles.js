@@ -13,3 +13,11 @@ export const LinkButton = styled.button`
 export const PrimaryButton = styled.button`
   ${tw`text-white bg-blue-300 px-4 py-2 rounded-lg mr-2`}
 `;
+
+export const ErrorMessage = styled.p`
+  ${tw`text-red-500 text-sm font-semibold`}
+`;
+
+export const InfoMessage = styled.p`
+  ${tw`text-blue-500 text-sm font-semibold`}
+`;
