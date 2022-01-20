@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../redux/actions/user.actions";
-import ErrorMessage from "../DisplayMessage/ErrorMessage";
-import Loading from "../Loading/Loading";
+import ErrorMessage from "../../components/DisplayMessage/ErrorMessage";
+import Loading from "../../components/Loading/Loading";
+import _ from "lodash";
 
 const Login = ({ history }) => {
   const [email, setemail] = useState("");
@@ -12,22 +13,21 @@ const Login = ({ history }) => {
 
   //Before login in we will check if you have login the we redirect you
 
-  const userLoginDetails = useSelector((state) => state.userLogin);
-
-  const { loading, userInfo, error } = userLoginDetails;
+  const { loading, userInfo, error } = useSelector((state) => state.userInfo);
 
   //submit form
   const submitFormHandler = (e) => {
     e.preventDefault();
-    dispatch(loginUser(email, password, history));
+    dispatch(loginUser(email, password));
   };
+  console.log(loading);
 
   useEffect(() => {
-    if (userInfo) {
+    if (!_.isEmpty(userInfo)) {
       history.push("/");
       window.location.reload();
     }
-  }, [dispatch, userInfo, history]);
+  }, [userInfo]);
 
   return (
     <div className="row container-height">
@@ -39,25 +39,25 @@ const Login = ({ history }) => {
           <form onSubmit={submitFormHandler}>
             <fieldset>
               <div className="form-group">
-                <label htmlFor="exampleInputEmail1">Email address</label>
+                <label htmlFor="email">Email address</label>
                 <input
                   value={email}
                   onChange={(e) => setemail(e.target.value)}
                   type="email"
                   className="form-control"
-                  id="exampleInputEmail1"
+                  id="email"
                   aria-describedby="emailHelp"
                   placeholder="Enter email"
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="exampleInputPassword1">Password</label>
+                <label htmlFor="password">Password</label>
                 <input
                   value={password}
                   onChange={(e) => setpassword(e.target.value)}
                   type="password"
                   className="form-control"
-                  id="exampleInputPassword1"
+                  id="password"
                   placeholder="Password"
                 />
               </div>
