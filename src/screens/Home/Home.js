@@ -1,16 +1,14 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./Home.css";
 import Todos from "../../components/Todos/Todos";
+import Navigation from "../../components/Navigation/Navigation";
 
 const Home = () => {
-  useEffect(() => {
-    if (
-      JSON.stringify(window.localStorage.getItem("userAuthData")) === "null"
-    ) {
-      window.location.href = "/login";
-    }
-  }, []);
-  return <Todos />;
+  return (
+    <Navigation>
+      <Todos />
+    </Navigation>
+  );
 };
 
 export default Home;

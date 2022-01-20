@@ -10,9 +10,8 @@ const AddTodo = ({ history }) => {
 
   //Get the user id from store
 
-  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = useSelector((state) => state.userInfo);
 
-  const { userInfo } = userLogin;
   //dispatch action
   const dispatch = useDispatch();
 

@@ -12,8 +12,7 @@ const Register = ({ history }) => {
 
   const [role, setrole] = useState("noadmin");
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo, loading, error } = userLogin;
+  const { userInfo, loading, error } = useSelector((state) => state.userInfo);
 
   //dispatch
   const dispatch = useDispatch();

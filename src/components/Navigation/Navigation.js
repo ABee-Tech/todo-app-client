@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { logoutUser } from "../../redux/actions/user.actions";
 import styled from "styled-components";
 import tw from "twin.macro";
@@ -25,8 +25,6 @@ const NavLinkNav = styled(NavLink)`
 
 const Header = ({ children }) => {
   const dispatch = useDispatch();
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
 
   return (
     <div className="w-screen flex">

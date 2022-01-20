@@ -29,7 +29,7 @@ function TodaysTasks() {
       <div className="col">
         {todos && todos.length ? (
           todos.map((todo) => {
-            return <Todo key={todo.id} todo={todo} />;
+            return <Todo key={todo._id} todo={todo} />;
           })
         ) : (
           <InfoMessage message={"No tasks?? Hurray!!"} />
