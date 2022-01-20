@@ -1,21 +1,19 @@
 import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
-import Navigation from "./components/Navigation/Navigation";
 import Home from "./screens/Home/Home";
-import Login from "./components/Login/Login";
+import Login from "./screens/Login/Login";
 import Register from "./components/Register/Register";
 import TodoDetail from "./components/Todos/TodoDetail";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 const App = () => {
   return (
     <>
       <BrowserRouter>
-        <Navigation>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/todo/:id" component={TodoDetail} />
-        </Navigation>
+        <ProtectedRoute exact path="/" component={Home} />
+        <ProtectedRoute exact path="/todo/:id" component={TodoDetail} />
+        <Route exact path="/register" component={Register} />
+        <Route exact path="/login" component={Login} />
       </BrowserRouter>
     </>
   );
