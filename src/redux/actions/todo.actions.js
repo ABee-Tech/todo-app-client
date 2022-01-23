@@ -199,11 +199,16 @@ export const completeTodo = (id, completed) => {
           "Content-Type": "application/json",
         },
       };
-      await axiosInstance.put(`/api/todos/${id}`, { completed }, config);
+      await axiosInstance.put(
+        `/api/todos/${id}/completed`,
+        { completed },
+        config
+      );
       const { data: newData } = await axiosInstance.get(`/api/todos`);
+      console.log(newData, "newData");
       dispatch({
         type: TODO_COMPLETE_SUCCESS,
-        payload: newData,
+        payload: { ...newData, completed },
       });
     } catch (error) {
       dispatch({

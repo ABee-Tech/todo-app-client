@@ -16,11 +16,11 @@ function TodaysTasks() {
   useEffect(() => {
     dispatch(fetchTodos());
   }, [dispatch]);
-  if (loading) return <Loading className="text-grey-500" />;
+  // if (loading) return <Loading className="text-grey-500" />;
   return (
     <div className="row">
       <Modal title="Add Todo" open={showModal} setOpen={setShowModal}>
-        <AddTodo />
+        <AddTodo setOpen={setShowModal} />
       </Modal>
       <HeadingWithAction>
         <Heading className="uppercase">Today's Tasks</Heading>

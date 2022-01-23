@@ -1,52 +1,48 @@
-import React, { useState } from "react";
+import React from "react";
 import { createTodo } from "../../redux/actions/todo.actions";
-import { useDispatch, useSelector } from "react-redux";
-import InputWithLabel from "../InputWithLabel/InputWithLabel";
+import { useDispatch } from "react-redux";
 import { PrimaryButton } from "../../styles/styles";
+import { useForm } from "react-hook-form";
+import FormInput from "../FormInput/FormInput";
 
-const AddTodo = ({ history }) => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-
-  //Get the user id from store
-
-  const { userInfo } = useSelector((state) => state.userInfo);
-
+const AddTodo = ({ setOpen }) => {
   //dispatch action
   const dispatch = useDispatch();
 
-  const formSubmitHandler = (e) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  //submit form
+  const formSubmitHandler = ({ title }) => {
     const data = {
       title,
-      description,
-      createdBy: userInfo && userInfo._id,
     };
-    e.preventDefault();
     dispatch(createTodo(data));
-    history.push("/");
+    setOpen(false);
   };
 
   return (
-    <form onSubmit={formSubmitHandler}>
+    <form>
       <fieldset>
-        <InputWithLabel
-          label="Title"
-          value={title}
-          onChangeText={setTitle}
+        <FormInput
           type="text"
           id="title"
-          placeholder="Title"
-        />
-        <InputWithLabel
-          label="Description"
-          value={description}
-          onChangeText={setDescription}
-          type="text"
-          id="description"
-          placeholder="Description"
+          placeholder="Todo"
+          errorText={errors?.title?.message}
+          {...register("title", {
+            required: "Todo is required",
+          })}
         />
       </fieldset>
-      <PrimaryButton onClick={formSubmitHandler}>Add</PrimaryButton>
+      <PrimaryButton
+        onClick={handleSubmit(formSubmitHandler)}
+        className="w-full"
+      >
+        Add
+      </PrimaryButton>
     </form>
   );
 };

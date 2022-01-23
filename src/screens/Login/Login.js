@@ -1,23 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../redux/actions/user.actions";
 import ErrorMessage from "../../components/DisplayMessage/ErrorMessage";
 import Loading from "../../components/Loading/Loading";
+import { useForm } from "react-hook-form";
 import _ from "lodash";
+import FormInput from "../../components/FormInput/FormInput";
+import { PrimaryButton } from "../../styles/styles";
 
 const Login = ({ history }) => {
-  const [email, setemail] = useState("");
-  const [password, setpassword] = useState("");
-
   const dispatch = useDispatch();
 
   //Before login in we will check if you have login the we redirect you
 
-  const { loading, userInfo, error } = useSelector((state) => state.userInfo);
+  const {
+    loading,
+    data: userInfo,
+    error,
+  } = useSelector((state) => state.userInfo);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   //submit form
-  const submitFormHandler = (e) => {
-    e.preventDefault();
+  const submitFormHandler = ({ email, password }) => {
     dispatch(loginUser(email, password));
   };
   console.log(loading);
@@ -27,7 +36,7 @@ const Login = ({ history }) => {
       history.push("/");
       window.location.reload();
     }
-  }, [userInfo]);
+  }, [userInfo, history]);
 
   return (
     <div className="row container-height">
@@ -36,35 +45,40 @@ const Login = ({ history }) => {
           {loading && <Loading />}
           {error && <ErrorMessage error={error} />}
           <h1 className="text-center">Login</h1>
-          <form onSubmit={submitFormHandler}>
+          <form onSubmit={handleSubmit(submitFormHandler)}>
             <fieldset>
               <div className="form-group">
-                <label htmlFor="email">Email address</label>
-                <input
-                  value={email}
-                  onChange={(e) => setemail(e.target.value)}
+                <FormInput
                   type="email"
-                  className="form-control"
                   id="email"
-                  aria-describedby="emailHelp"
-                  placeholder="Enter email"
+                  placeholder="Email"
+                  autoComplete="on"
+                  errorText={errors?.email?.message}
+                  {...register("email", {
+                    required: "Email is required",
+                    pattern: {
+                      value: /^\S+@\S+$/i,
+                      message: "Email is invalid",
+                    },
+                  })}
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <input
-                  value={password}
-                  onChange={(e) => setpassword(e.target.value)}
+                <FormInput
                   type="password"
-                  className="form-control"
                   id="password"
                   placeholder="Password"
+                  autoComplete="on"
+                  errorText={errors?.password?.message}
+                  {...register("password", {
+                    required: "Password is required",
+                  })}
                 />
               </div>
 
-              <button type="submit" className="btn btn-primary m-auto">
+              <PrimaryButton type="submit" className="w-full">
                 Login
-              </button>
+              </PrimaryButton>
             </fieldset>
           </form>
         </div>

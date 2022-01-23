@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import _ from "lodash";
 
 function ProtectedRoute({ component: Component, ...rest }) {
-  const { userInfo } = useSelector((state) => state.userInfo);
+  const { data: userInfo } = useSelector((state) => state.userInfo);
 
   const isAuthenticated = !_.isEmpty(userInfo);
   return (

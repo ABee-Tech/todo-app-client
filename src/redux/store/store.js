@@ -7,11 +7,7 @@ import {
   userUpdateReducer,
   usersListReducer,
 } from "../reducers/user.reducers";
-import {
-  createdTodoReducer,
-  todosListReducer,
-  todoDetailReducer,
-} from "../reducers/todo.reducers";
+import { todosListReducer, todoDetailReducer } from "../reducers/todo.reducers";
 
 const middleware = [thunk];
 
@@ -19,7 +15,6 @@ const reducer = combineReducers({
   userInfo: userInfoReducer,
   userProfile: userProfileReducer,
   updatedUser: userUpdateReducer,
-  todoCreated: createdTodoReducer,
   todosList: todosListReducer,
   todoDetails: todoDetailReducer,
   usersList: usersListReducer,
@@ -38,7 +33,7 @@ const userAuthFromStorage = localStorage.getItem("userAuthData")
   : {};
 
 const initialState = {
-  userInfo: { loading: false, userInfo: userAuthFromStorage, error: "" },
+  userInfo: { loading: false, data: userAuthFromStorage, error: "" },
 };
 
 const store = createStore(

@@ -18,7 +18,7 @@ import {
 } from "../actionTypes";
 
 export const userInfoReducer = (
-  state = { loading: false, userInfo: {}, error: "" },
+  state = { loading: false, data: {}, error: "" },
   action
 ) => {
   switch (action.type) {
@@ -29,7 +29,7 @@ export const userInfoReducer = (
       return {
         ...state,
         loading: false,
-        userInfo: action.payload,
+        data: action.payload,
       };
     case USER_REGISTER_FAIL:
       return {
@@ -37,6 +37,7 @@ export const userInfoReducer = (
         loading: false,
         error: action.payload,
       };
+
     // Login
     case USER_LOGIN_REQUEST:
       return {
@@ -47,7 +48,7 @@ export const userInfoReducer = (
       return {
         ...state,
         loading: false,
-        userInfo: action.payload,
+        data: action.payload,
       };
     case USER_LOGIN_FAIL:
       return {
@@ -55,9 +56,11 @@ export const userInfoReducer = (
         loading: false,
         error: action.payload,
       };
+
     // Logout
     case USER_LOGOUT:
-      return { loading: false, userInfo: {}, error: "" };
+      return { loading: false, data: {}, error: "" };
+
     default:
       return state;
   }

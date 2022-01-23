@@ -16,7 +16,8 @@ const Todo = ({ todo }) => {
   const [isChecked, setIsChecked] = useState(false);
   const dispatch = useDispatch();
 
-  const toggleCheck = () => {
+  const toggleCheck = (e) => {
+    e.preventDefault();
     setIsChecked(!isChecked);
     console.log(todo._id);
     dispatch(completeTodo(todo._id, !isChecked));
