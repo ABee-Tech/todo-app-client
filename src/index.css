@@ -314,3 +314,12 @@ template {
   width: 80%;
   margin: auto;
 }
+
+button,
+input[type="submit"],
+input[type="button"],
+button:focus,
+input[type="submit"]:focus,
+input[type="button"]:focus {
+  outline: none;
+}
