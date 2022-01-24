@@ -65,27 +65,19 @@ const Header = ({ children }) => {
             </li>
 
             <li className="w-full nav-item">
-              <NavLinkNav className="nav-link" to="/addtodo">
+              <NavLinkNav className="nav-link" to="/categories">
                 <BiCategory />
                 Categories
               </NavLinkNav>
             </li>
             <li className="w-full nav-item">
-              <NavLinkNav
-                className="nav-link"
-                to="/login"
-                onClick={() => dispatch(logoutUser())}
-              >
+              <NavLinkNav className="nav-link" to="/analytics">
                 <RiPieChartLine />
                 Analytics
               </NavLinkNav>
             </li>
             <li className="w-full nav-item">
-              <NavLinkNav
-                className="nav-link"
-                to="/login"
-                onClick={() => dispatch(logoutUser())}
-              >
+              <NavLinkNav className="nav-link" to="/settings">
                 <FiSettings />
                 Settings
               </NavLinkNav>
