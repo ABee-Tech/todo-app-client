@@ -1,11 +1,12 @@
 import axios from "axios";
 
-const token = JSON.parse(localStorage.getItem("userAuthData"))?.token;
+const userAuthData = localStorage.getItem("userAuthData") || "";
+const token = JSON.parse(userAuthData)?.token;
 
 export const axiosInstance = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
-  "Access-Control-Allow-Origin": "*",
   headers: {
+    "Access-Control-Allow-Origin": "*",
     "Content-Type": "application/json",
     authorization: `Bearer ${token}`,
   },

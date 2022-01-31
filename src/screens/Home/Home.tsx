@@ -1,12 +1,12 @@
 import React from "react";
 import "./Home.css";
-import Todos from "../../components/Todos/Todos";
+import TodaysTasks from "../../components/Todos/TodaysTasks";
 import Navigation from "../../components/Navigation/Navigation";
 
-const Home = () => {
+const Home: React.ReactNode = () => {
   return (
     <Navigation>
-      <Todos />
+      <TodaysTasks />
     </Navigation>
   );
 };

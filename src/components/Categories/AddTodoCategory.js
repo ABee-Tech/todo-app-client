@@ -1,11 +1,11 @@
 import React from "react";
-import { createTodo } from "../../redux/actions/todo.actions";
+import { createTodoCategory } from "../../redux/actions/todo.actions";
 import { useDispatch } from "react-redux";
 import { PrimaryButton } from "../../styles/styles";
 import { useForm } from "react-hook-form";
 import FormInput from "../FormInput/FormInput";
 
-const AddTodo = ({ setOpen }) => {
+const AddTodoCategory = ({ setOpen }) => {
   //dispatch action
   const dispatch = useDispatch();
 
@@ -20,7 +20,7 @@ const AddTodo = ({ setOpen }) => {
     const data = {
       title,
     };
-    dispatch(createTodo(data));
+    dispatch(createTodoCategory(data));
     setOpen(false);
   };
 
@@ -30,10 +30,10 @@ const AddTodo = ({ setOpen }) => {
         <FormInput
           type="text"
           id="title"
-          placeholder="Todo"
+          placeholder="TodoCategory"
           errorText={errors?.title?.message}
           {...register("title", {
-            required: "Todo is required",
+            required: "TodoCategory is required",
           })}
         />
       </fieldset>
@@ -47,4 +47,4 @@ const AddTodo = ({ setOpen }) => {
   );
 };
 
-export default AddTodo;
+export default AddTodoCategory;

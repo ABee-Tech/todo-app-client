@@ -23,7 +23,7 @@ const NavLinkNav = styled(NavLink)`
   }
 `;
 
-const Header = ({ children }) => {
+const Navigation = ({ children }) => {
   const dispatch = useDispatch();
 
   return (
@@ -87,7 +87,6 @@ const Header = ({ children }) => {
             <li className="w-full nav-item">
               <NavLinkNav
                 className="nav-link"
-                to="/login"
                 onClick={() => dispatch(logoutUser())}
               >
                 <FiLogOut />
@@ -102,4 +101,4 @@ const Header = ({ children }) => {
   );
 };
 
-export default Header;
+export default Navigation;
