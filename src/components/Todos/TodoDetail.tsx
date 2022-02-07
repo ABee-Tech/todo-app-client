@@ -1,14 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState, FormEvent } from "react";
+import { useParams, RouteComponentProps } from "react-router-dom";
+import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
 import { fetchTodo, updateTodo } from "../../redux/actions/todo.actions";
 
-const TodoDetail = ({ history }) => {
+
+interface ITodoDetailProps extends RouteComponentProps { }
+
+type TodoDetailParams = {
+  id: string;
+}
+
+const TodoDetail: React.FC<ITodoDetailProps> = ({ history }) => {
   //Get the todo details and fill it in the form
-  const todoDetails = useSelector((state) => state.todoDetails);
+  const todoDetails = useSelector((state: RootStateOrAny) => state.todoDetails);
 
   const { todo, loading } = todoDetails;
-  let { id } = useParams();
+  let { id } = useParams<TodoDetailParams>();
 
   const [title, setTitle] = useState(todo && !loading && todo.title);
   const [description, setDescription] = useState(
@@ -19,7 +26,7 @@ const TodoDetail = ({ history }) => {
 
   //dispatch action
 
-  const formSubmitHandler = (e) => {
+  const formSubmitHandler = (e: FormEvent) => {
     const data = {
       title,
       description,

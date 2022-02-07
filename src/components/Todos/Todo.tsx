@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, MouseEvent } from "react";
 import { deleteTodo, completeTodo } from "../../redux/actions/todo.actions";
 import { useDispatch } from "react-redux";
 import { BsCheckLg } from "react-icons/bs";
 import { BiTrash } from "react-icons/bi";
 import styled from "styled-components";
 import tw from "twin.macro";
+import { ITodo } from "../../types";
 
 const TodoHolder = styled.span`
 ${tw`font-semibold overflow-hidden relative flex items-center`}
@@ -12,14 +13,18 @@ ${tw`font-semibold overflow-hidden relative flex items-center`}
     ${tw`right-0`}
 `;
 
-const Todo = ({ todo }) => {
-  const [isChecked, setIsChecked] = useState(false);
+interface ITodoProps {
+  todo: ITodo;
+}
+
+
+const Todo = ({ todo }: ITodoProps) => {
+  const [isChecked, setIsChecked] = useState<Boolean>(false);
   const dispatch = useDispatch();
 
-  const toggleCheck = (e) => {
+  const toggleCheck = (e: MouseEvent) => {
     e.preventDefault();
     setIsChecked(!isChecked);
-    console.log(todo._id);
     dispatch(completeTodo(todo._id, !isChecked));
   };
 
@@ -34,20 +39,17 @@ const Todo = ({ todo }) => {
       >
         <div className="flex items-center select-none">
           <div
-            className={`h-5 w-5 rounded-full border-2 flex justify-center items-center mr-2 border-purple-500 ${
-              !isChecked && `bg-grey-500 border-grey-500`
-            }`}
+            className={`h-5 w-5 rounded-full border-2 flex justify-center items-center mr-2 border-purple-500 ${!isChecked && `bg-grey-500 border-grey-500`
+              }`}
           >
             <BsCheckLg
-              className={`text-xs text-purple-500 ${
-                !isChecked && `text-slate-50`
-              }`}
+              className={`text-xs text-purple-500 ${!isChecked && `text-slate-50`
+                }`}
             />
           </div>
           <span
-            className={`font-semibold overflow-hidden relative flex items-center ${
-              !isChecked && `text-grey-500`
-            }`}
+            className={`font-semibold overflow-hidden relative flex items-center ${!isChecked && `text-grey-500`
+              }`}
           >
             {!isChecked ? <del>{todo.title}</del> : todo.title}
           </span>

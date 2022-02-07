@@ -94,7 +94,7 @@ export const fetchTodos = () => {
 
 //delete a todo
 
-export const deleteTodo = (id: number) => {
+export const deleteTodo = (id: string) => {
   return async (dispatch: Dispatch) => {
     try {
       dispatch({
@@ -129,7 +129,7 @@ export const deleteTodo = (id: number) => {
 };
 
 //Fetch a signle todo
-export const fetchTodo = (id: number) => {
+export const fetchTodo = (id: string) => {
   return async (dispatch: Dispatch) => {
     try {
       dispatch({
@@ -161,7 +161,7 @@ export const fetchTodo = (id: number) => {
 
 //UPDATE TODO
 
-export const updateTodo = (id: number, todoData: ITodo) => {
+export const updateTodo = (id: string, todoData: ITodo) => {
   return async (dispatch: Dispatch) => {
     try {
       dispatch({
@@ -192,7 +192,7 @@ export const updateTodo = (id: number, todoData: ITodo) => {
 
 //COMPLETE TODO
 
-export const completeTodo = (id: number, completed: boolean) => {
+export const completeTodo = (id: string, completed: boolean) => {
   return async (dispatch: Dispatch) => {
     try {
       dispatch({
