@@ -1,23 +1,26 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { FormEvent, useState } from "react";
+import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import "./Register.css";
 import { registerUser } from "../../redux/actions/user.actions";
 import Loading from "../Loading/Loading";
 import ErrorMessage from "../DisplayMessage/ErrorMessage";
+import { RouteComponentProps } from "react-router-dom";
 
-const Register = ({ history }) => {
+interface IRegister extends RouteComponentProps { }
+
+const Register = ({ history }: IRegister) => {
   const [name, setname] = useState("");
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
 
   const [role, setrole] = useState("noadmin");
 
-  const { userInfo, loading, error } = useSelector((state) => state.userInfo);
+  const { userInfo, loading, error } = useSelector((state: RootStateOrAny) => state.userInfo);
 
   //dispatch
   const dispatch = useDispatch();
   //submit
-  const formSubmitHandler = (e) => {
+  const formSubmitHandler = (e: FormEvent) => {
     e.preventDefault();
     dispatch(registerUser(name, email, password, role));
     console.log(userInfo, loading, error);

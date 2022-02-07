@@ -1,7 +1,12 @@
 import React from "react";
 import { CgSpinner } from "react-icons/cg";
 
-function Spinner({ height, width }) {
+interface ISpinnerProps {
+  height?: number | string;
+  width?: number | string;
+}
+
+function Spinner({ height, width }: ISpinnerProps) {
   return (
     <CgSpinner
       className={`animate-spin`}
