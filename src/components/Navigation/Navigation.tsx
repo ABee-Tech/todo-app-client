@@ -8,10 +8,14 @@ import { BiHomeAlt, BiCategory } from "react-icons/bi";
 import { RiPieChartLine } from "react-icons/ri";
 import { FiSettings, FiLogOut } from "react-icons/fi";
 
-import Portrait from "../../assets/img/portrait.jpg";
-
 const NavLink = styled(Link)`
   ${tw`text-white hover:text-white focus:text-white active:text-white hover:no-underline focus:no-underline active:no-underline`}
+`;
+const NavBtn = styled.button`
+  ${tw`w-full hover:text-white focus:text-white active:text-white hover:no-underline focus:no-underline active:no-underline bg-darkblue-800 flex items-center text-white font-light my-2 py-2 px-3 hover:bg-darkblue-600 focus:bg-darkblue-600 rounded-lg`}
+  & svg {
+    ${tw`mr-3 text-bluish-700 text-xl`}
+  }
 `;
 const NavLinkBtn = styled(NavLink)`
   ${tw`text-white hover:text-white focus:text-white active:text-white hover:no-underline focus:no-underline active:no-underline hover:bg-blue-200 focus:bg-blue-200 rounded-lg bg-darkblue-400 flex px-3 py-2 my-1 font-semibold text-sm`}
@@ -23,7 +27,13 @@ const NavLinkNav = styled(NavLink)`
   }
 `;
 
-const Navigation = ({ children }) => {
+interface IProps {
+  children: React.ReactNode;
+}
+
+const Navigation = ({ children }: IProps) => {
+  const defaultProfileImg = "./assets/img/portrait.jpg";
+
   const dispatch = useDispatch();
 
   return (
@@ -37,7 +47,7 @@ const Navigation = ({ children }) => {
             <div className=" bg-gradient-to-r from-transparent to-pink rounded-full h-24 w-24 flex justify-center items-center overflow-hidden ">
               <div className=" rounded-full h-full w-full p-1 flex justify-center items-center overflow-hidden">
                 <img
-                  src={Portrait}
+                  src={defaultProfileImg}
                   className="overflow-hidden rounded-full h-full w-full object-cover"
                 />
               </div>
@@ -85,13 +95,13 @@ const Navigation = ({ children }) => {
           </ul>
           <ul className=" mt-auto">
             <li className="w-full nav-item">
-              <NavLinkNav
+              <NavBtn
                 className="nav-link"
                 onClick={() => dispatch(logoutUser())}
               >
                 <FiLogOut />
                 Logout
-              </NavLinkNav>
+              </NavBtn>
             </li>
           </ul>
         </div>

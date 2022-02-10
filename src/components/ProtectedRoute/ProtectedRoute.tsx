@@ -1,10 +1,15 @@
 import React from "react";
-import { Route, Redirect } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Route, Redirect, RouteProps } from "react-router-dom";
+import { RootStateOrAny, useSelector } from "react-redux";
 import _ from "lodash";
 
-function ProtectedRoute({ component: Component, ...rest }) {
-  const { data: userInfo } = useSelector((state) => state.userInfo);
+interface IProtectedRouteProps extends RouteProps {
+  component: any;
+}
+
+
+function ProtectedRoute({ component: Component, ...rest }: IProtectedRouteProps) {
+  const { data: userInfo } = useSelector((state: RootStateOrAny) => state.userInfo);
 
   const isAuthenticated = !_.isEmpty(userInfo);
   return (
