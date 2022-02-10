@@ -7,9 +7,13 @@ interface IProtectedRouteProps extends RouteProps {
   component: any;
 }
 
-
-function ProtectedRoute({ component: Component, ...rest }: IProtectedRouteProps) {
-  const { data: userInfo } = useSelector((state: RootStateOrAny) => state.userInfo);
+function ProtectedRoute({
+  component: Component,
+  ...rest
+}: IProtectedRouteProps) {
+  const { data: userInfo } = useSelector(
+    (state: RootStateOrAny) => state.userInfo
+  );
 
   const isAuthenticated = !_.isEmpty(userInfo);
   return (

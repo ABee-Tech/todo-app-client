@@ -6,7 +6,7 @@ import Loading from "../Loading/Loading";
 import ErrorMessage from "../DisplayMessage/ErrorMessage";
 import { RouteComponentProps } from "react-router-dom";
 
-interface IRegister extends RouteComponentProps { }
+interface IRegister extends RouteComponentProps {}
 
 const Register = ({ history }: IRegister) => {
   const [name, setname] = useState("");
@@ -15,7 +15,9 @@ const Register = ({ history }: IRegister) => {
 
   const [role, setrole] = useState("noadmin");
 
-  const { userInfo, loading, error } = useSelector((state: RootStateOrAny) => state.userInfo);
+  const { userInfo, loading, error } = useSelector(
+    (state: RootStateOrAny) => state.userInfo
+  );
 
   //dispatch
   const dispatch = useDispatch();
@@ -32,7 +34,7 @@ const Register = ({ history }: IRegister) => {
       <div className="col-lg-6 col-md-6 m-auto">
         <div className="container">
           {loading && <Loading />}
-          {error && <ErrorMessage error={error} />}
+          {error && <ErrorMessage message={error} />}
           <h1 className="text-center">Register</h1>
 
           <form onSubmit={formSubmitHandler}>

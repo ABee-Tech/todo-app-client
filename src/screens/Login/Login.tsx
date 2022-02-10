@@ -12,7 +12,7 @@ import ToastContainer from "../../components/ToastContainer/ToastContainer";
 import { RouteComponentProps } from "react-router-dom";
 import { UserInfoState } from "../../redux/store/store";
 
-interface IChildProps extends RouteComponentProps { }
+interface IChildProps extends RouteComponentProps {}
 
 const Login: React.FC<IChildProps> = ({ history }) => {
   const dispatch = useDispatch();
@@ -35,7 +35,6 @@ const Login: React.FC<IChildProps> = ({ history }) => {
   const submitFormHandler = ({ email, password }: any) => {
     dispatch(loginUser(email, password));
   };
-  console.log(loading);
 
   useEffect(() => {
     if (!_.isEmpty(userInfo)) {
@@ -54,7 +53,7 @@ const Login: React.FC<IChildProps> = ({ history }) => {
           </div>
         )}
         <div className="container">
-          {error && <ErrorMessage error={error} />}
+          {error && <ErrorMessage message={error} />}
           <div className="border-b">
             <h1 className="text-center font-bold text-2xl my-4">
               <span className="text-green-500">TO</span>

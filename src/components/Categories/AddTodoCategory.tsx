@@ -1,11 +1,19 @@
 import React from "react";
-import { createTodoCategory } from "../../redux/actions/todo.actions";
+import { createTodoCategory } from "../../redux/actions/todoCategory.actions";
 import { useDispatch } from "react-redux";
 import { PrimaryButton } from "../../styles/styles";
 import { useForm } from "react-hook-form";
 import FormInput from "../FormInput/FormInput";
 
-const AddTodoCategory = ({ setOpen }) => {
+interface IAddTodoCategoryProps {
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+interface IFormData {
+  title?: string;
+}
+
+const AddTodoCategory = ({ setOpen }: IAddTodoCategoryProps) => {
   //dispatch action
   const dispatch = useDispatch();
 
@@ -16,7 +24,7 @@ const AddTodoCategory = ({ setOpen }) => {
   } = useForm();
 
   //submit form
-  const formSubmitHandler = ({ title }) => {
+  const formSubmitHandler = ({ title }: IFormData) => {
     const data = {
       title,
     };

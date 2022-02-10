@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import Loading from "../Loading/Loading";
 import Todo from "../Todos/Todo";
 
@@ -8,11 +8,14 @@ import { Heading, HeadingWithAction, LinkButton } from "../../styles/styles";
 import InfoMessage from "../DisplayMessage/InfoMessage";
 import Modal from "../Modal/Modal";
 import AddTodo from "../Todos/AddTodo";
+import { ITodo } from "../../types";
 
 function AllCategories() {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
-  const { todos, loading } = useSelector((state) => state.todosList);
+  const { todos, loading } = useSelector(
+    (state: RootStateOrAny) => state.todosList
+  );
   useEffect(() => {
     dispatch(fetchTodos());
   }, [dispatch]);
@@ -30,7 +33,7 @@ function AllCategories() {
       </HeadingWithAction>
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
         {todos && todos.length ? (
-          todos.map((todo) => {
+          todos.map((todo: ITodo) => {
             return <Todo className="col-3" key={todo._id} todo={todo} />;
           })
         ) : (

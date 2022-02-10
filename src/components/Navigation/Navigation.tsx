@@ -27,11 +27,11 @@ const NavLinkNav = styled(NavLink)`
   }
 `;
 
-interface IProps {
+interface INavigationProps {
   children: React.ReactNode;
 }
 
-const Navigation = ({ children }: IProps) => {
+const Navigation = ({ children }: INavigationProps) => {
   const defaultProfileImg = "./assets/img/portrait.jpg";
 
   const dispatch = useDispatch();
@@ -39,7 +39,7 @@ const Navigation = ({ children }: IProps) => {
   return (
     <div className="w-screen flex">
       <header>
-        <div className="w-48 h-screen bg-darkblue-900 p-5 flex flex-col">
+        <div className="w-48 h-screen bg-darkblue-900 p-5 flex flex-col fixed">
           <NavLink
             className="text-md text-white w-full flex items-center h-24"
             to="/"
@@ -106,7 +106,7 @@ const Navigation = ({ children }: IProps) => {
           </ul>
         </div>
       </header>
-      <div className="px-5 py-4 w-full">{children}</div>
+      <div className="px-5 py-4 w-full ml-48">{children}</div>
     </div>
   );
 };
