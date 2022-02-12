@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import React, { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { GrClose } from "react-icons/gr";
 
@@ -21,7 +21,9 @@ function Modal({
     <Transition.Root show={open} as={Fragment}>
       <Dialog
         open={open}
-        onClose={() => { setOpen(false) }}
+        onClose={() => {
+          setOpen(false);
+        }}
         className="fixed z-10 inset-0 overflow-y-auto"
       >
         <div className="flex items-center justify-center min-h-screen">
