@@ -49,21 +49,17 @@ const Todo: React.FC<ITodoProps> = ({
         <div className="flex items-center select-none">
           <div
             className={`h-5 w-5 rounded-full border-2 flex justify-center items-center mr-2 border-purple-500 ${
-              !isChecked && `bg-grey-500 border-grey-500`
+              isChecked && `bg-grey-500 border-grey-500`
             }`}
           >
-            <BsCheckLg
-              className={`text-xs text-purple-500 ${
-                !isChecked && `text-slate-50`
-              }`}
-            />
+            {isChecked && <BsCheckLg className={`text-xs text-slate-50`} />}
           </div>
           <span
             className={`font-semibold overflow-hidden relative flex items-center ${
-              !isChecked && `text-grey-500`
+              isChecked && `text-grey-500`
             }`}
           >
-            {!isChecked ? <del>{todo.title}</del> : todo.title}
+            {isChecked ? <del>{todo.title}</del> : todo.title}
           </span>
         </div>
       </TodoHolder>
