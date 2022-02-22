@@ -5,7 +5,7 @@ import { BsCheckLg } from "react-icons/bs";
 import { BiTrash } from "react-icons/bi";
 import styled from "styled-components";
 import tw from "twin.macro";
-import { ITodo } from "../../types";
+import { ITodoState } from "@types";
 
 const TodoHolder = styled.span`
 ${tw`font-semibold overflow-hidden relative flex items-center`}
@@ -14,7 +14,7 @@ ${tw`font-semibold overflow-hidden relative flex items-center`}
 `;
 
 interface ITodoProps {
-  todo: ITodo;
+  todo: ITodoState;
   className?: string;
 }
 

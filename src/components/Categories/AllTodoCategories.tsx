@@ -8,13 +8,13 @@ import { Heading, HeadingWithAction, LinkButton } from "../../styles/styles";
 import InfoMessage from "../DisplayMessage/InfoMessage";
 import Modal from "../Modal/Modal";
 import AddTodo from "../Todos/AddTodo";
-import { ITodo } from "../../types";
+import { ITodoState } from "@types";
 
 function AllCategories() {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const { todos, loading } = useSelector(
-    (state: RootStateOrAny) => state.todosList
+    (state: RootStateOrAny) => state.todoList
   );
   useEffect(() => {
     dispatch(fetchTodos());
@@ -33,7 +33,7 @@ function AllCategories() {
       </HeadingWithAction>
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
         {todos && todos.length ? (
-          todos.map((todo: ITodo) => {
+          todos.map((todo: ITodoState) => {
             return <Todo className="col-3" key={todo._id} todo={todo} />;
           })
         ) : (

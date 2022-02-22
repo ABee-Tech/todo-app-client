@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../redux/actions/user.actions";
 import ErrorMessage from "../../components/DisplayMessage/ErrorMessage";
 import Loading from "../../components/Loading/Loading";
@@ -10,7 +10,8 @@ import { PrimaryButton } from "../../styles/styles";
 import { Link } from "react-router-dom";
 import ToastContainer from "../../components/ToastContainer/ToastContainer";
 import { RouteComponentProps } from "react-router-dom";
-import { UserInfoState } from "../../redux/store/store";
+import { RootState } from "../../redux/store/store";
+// import { UserInfoState } from "../../redux/store/store";
 
 interface IChildProps extends RouteComponentProps {}
 
@@ -23,7 +24,7 @@ const Login: React.FC<IChildProps> = ({ history }) => {
     loading,
     data: userInfo,
     error,
-  } = useSelector((state: RootStateOrAny) => state.userInfo);
+  } = useSelector((state: RootState) => state.userInfo);
 
   const {
     register,
@@ -37,6 +38,7 @@ const Login: React.FC<IChildProps> = ({ history }) => {
   };
 
   useEffect(() => {
+    console.log(userInfo, "changedUserInfo");
     if (!_.isEmpty(userInfo)) {
       history.push("/");
       window.location.reload();

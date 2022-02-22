@@ -15,5 +15,22 @@
         "noEmit": true,
         "resolveJsonModule": true,
         "isolatedModules": true,
+        "paths": {
+            "*": [
+                "./node_modules/*"
+            ],
+            "@components/*": [
+                "./src/components/*"
+            ],
+            "@types": [
+                "./src/types"
+            ],
+            "@types/*": [
+                "./src/types/*"
+            ],
+            "@utils/*": [
+                "./src/utils/*"
+            ]
+        },
     }
 }
