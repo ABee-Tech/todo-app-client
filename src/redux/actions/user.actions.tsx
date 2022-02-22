@@ -1,13 +1,16 @@
 import { axiosInstance } from "../../utils/axios";
 import { Dispatch } from "redux";
+import {
+  userRegisterRequest,
+  userRegisterSuccess,
+  userRegisterFail,
+  userLoginRequest,
+  userLoginSuccess,
+  userLoginFail,
+  userLogout,
+} from "../reducers/userInfo.reducers";
 
 import {
-  USER_LOGIN_FAIL,
-  USER_LOGIN_SUCCESS,
-  USER_REGISTER_FAIL,
-  USER_REGISTER_REQUEST,
-  USER_REGISTER_SUCCESS,
-  USER_LOGIN_REQUEST,
   USER_LOGOUT,
   USER_PROFILE_REQUEST,
   USER_PROFILE_SUCCESS,
@@ -21,12 +24,15 @@ import {
 } from "../actionTypes";
 import { RootStateOrAny } from "react-redux";
 
-export const registerUser = (name: string, email: string, password: string, role: string) => {
+export const registerUser = (
+  name: string,
+  email: string,
+  password: string,
+  role: string
+) => {
   return async (dispatch: Dispatch) => {
     try {
-      dispatch({
-        type: USER_REGISTER_REQUEST,
-      });
+      dispatch(userRegisterRequest());
 
       const config = {
         headers: { "Content-Type": "application/json" },
@@ -42,21 +48,18 @@ export const registerUser = (name: string, email: string, password: string, role
         },
         config
       );
-      dispatch({
-        type: USER_REGISTER_SUCCESS,
-        payload: data,
-      });
+      dispatch(userRegisterSuccess(data));
 
       localStorage.setItem("userAuthData", JSON.stringify(data));
     } catch (error: any) {
-      console.log("mongdb error", error);
-      dispatch({
-        type: USER_REGISTER_FAIL,
-        payload:
+      console.log("mongodb error", error);
+      dispatch(
+        userRegisterFail(
           error.response && error.response.data.message
             ? error.response.data.message
-            : error.message,
-      });
+            : error.message
+        )
+      );
     }
   };
 };
@@ -64,9 +67,7 @@ export const registerUser = (name: string, email: string, password: string, role
 export const loginUser = (email: string, password: string) => {
   return async (dispatch: Dispatch) => {
     try {
-      dispatch({
-        type: USER_LOGIN_REQUEST,
-      });
+      dispatch(userLoginRequest());
 
       const config = {
         headers: {
@@ -80,15 +81,9 @@ export const loginUser = (email: string, password: string) => {
       );
       localStorage.setItem("userAuthData", JSON.stringify(data));
 
-      dispatch({
-        type: USER_LOGIN_SUCCESS,
-        payload: data,
-      });
+      dispatch(userLoginSuccess(data));
     } catch (error: any) {
-      dispatch({
-        type: USER_LOGIN_FAIL,
-        payload: error.response.data.message,
-      });
+      dispatch(userLoginFail(error.response.data.message));
     }
   };
 };
@@ -97,10 +92,8 @@ export const logoutUser = () => {
   return async (dispatch: Dispatch) => {
     localStorage.removeItem("userAuthData");
     try {
-      dispatch({
-        type: USER_LOGOUT,
-      });
-    } catch (error) { }
+      dispatch(userLogout());
+    } catch (error) {}
   };
 };
 
@@ -166,35 +159,6 @@ export const updateUser = (name: string, email: string, password: string) => {
           error.response && error.response.data.message
             ? error.response.data.message
             : error.message,
-      });
-    }
-  };
-};
-
-export const fetchUsers = () => {
-  return async (dispatch: Dispatch) => {
-    try {
-      dispatch({
-        type: USER_FETCH_REQUEST,
-        loading: true,
-      });
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-      const { data } = await axiosInstance.get(
-        process.env.REACT_APP_API_URL + "/api/users",
-        config
-      );
-      dispatch({
-        type: USER_FETCH_SUCCESS,
-        payload: data,
-      });
-    } catch (error: any) {
-      dispatch({
-        type: USER_FETCH_FAIL,
-        error: error.response && error.response.data.message,
       });
     }
   };

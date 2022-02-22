@@ -6,7 +6,6 @@ import Analytics from "./screens/Analytics/Analytics";
 import Settings from "./screens/Settings/Settings";
 import Login from "./screens/Login/Login";
 import Register from "./components/Register/Register";
-import TodoDetail from "./components/Todos/TodoDetail";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 const App = () => {
@@ -14,7 +13,6 @@ const App = () => {
     <>
       <BrowserRouter>
         <ProtectedRoute exact path="/" component={Home} />
-        <ProtectedRoute exact path="/todo/:id" component={TodoDetail} />
         <ProtectedRoute exact path="/categories" component={Categories} />
         <ProtectedRoute exact path="/analytics" component={Analytics} />
         <ProtectedRoute exact path="/settings" component={Settings} />

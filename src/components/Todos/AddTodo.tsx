@@ -4,14 +4,10 @@ import { useDispatch } from "react-redux";
 import { PrimaryButton } from "../../styles/styles";
 import { useForm } from "react-hook-form";
 import FormInput from "../FormInput/FormInput";
+import { ITodoState } from "@types";
 
 interface IAddTodoProps {
   setOpen: any;
-}
-
-interface IAddTodoFormData {
-  title?: string;
-  description?: string;
 }
 
 const AddTodo = ({ setOpen }: IAddTodoProps) => {
@@ -25,7 +21,7 @@ const AddTodo = ({ setOpen }: IAddTodoProps) => {
   } = useForm();
 
   //submit form
-  const formSubmitHandler = ({ title }: IAddTodoFormData) => {
+  const formSubmitHandler = ({ title }: Partial<ITodoState>) => {
     const data = {
       title,
     };

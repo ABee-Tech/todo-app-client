@@ -20,22 +20,29 @@ import {
   TODO_COMPLETE_FAIL,
   TODO_COMPLETE_REQUEST,
 } from "../actionTypes";
-
-interface ITodo {
-  title?: string;
-  description?: string;
-  completed?: string;
-}
+import { ITodoState } from "@types";
+import {
+  todoCompleteFail,
+  todoCompleteRequest,
+  todoCompleteSuccess,
+  todoCreateFail,
+  todoCreateRequest,
+  todoCreateSuccess,
+  todoFail,
+  todoListFetchFail,
+  todoListFetchRequest,
+  todoListFetchSuccess,
+  todoRequest,
+  todoSuccess,
+} from "../reducers/todo.reducers";
 
 //Create todo
 
-export const createTodo = (todoData: ITodo) => {
+export const createTodo = (todoData: Partial<ITodoState>) => {
   return async (dispatch: Dispatch) => {
     try {
-      dispatch({
-        type: TODO_CREATE_REQUEST,
-        loading: true,
-      });
+      dispatch(todoCreateRequest());
+
       const config = {
         headers: {
           "Content-Type": "application/json",
@@ -47,15 +54,9 @@ export const createTodo = (todoData: ITodo) => {
         config
       );
 
-      dispatch({
-        type: TODO_CREATE_SUCCESS,
-        payload: data,
-      });
+      dispatch(todoCreateSuccess(data));
     } catch (error: any) {
-      dispatch({
-        type: TODO_CREATE_FAIL,
-        payload: error.response && error.response.data.message,
-      });
+      dispatch(todoCreateFail(error.response && error.response.data.message));
     }
   };
 };
@@ -65,10 +66,8 @@ export const createTodo = (todoData: ITodo) => {
 export const fetchTodos = () => {
   return async (dispatch: Dispatch) => {
     try {
-      dispatch({
-        type: TODO_FETCH_REQUEST,
-        loading: true,
-      });
+      dispatch(todoListFetchRequest());
+
       const config = {
         headers: {
           "Content-Type": "application/json",
@@ -79,15 +78,11 @@ export const fetchTodos = () => {
         config
       );
 
-      dispatch({
-        type: TODO_FETCH_SUCCESS,
-        payload: data,
-      });
+      dispatch(todoListFetchSuccess(data));
     } catch (error: any) {
-      dispatch({
-        type: TODO_FETCH_FAIL,
-        payload: error.response && error.response.data.message,
-      });
+      dispatch(
+        todoListFetchFail(error.response && error.response.data.message)
+      );
     }
   };
 };
@@ -112,12 +107,6 @@ export const deleteTodo = (id: string) => {
         type: TODO_DELETE_SUCCESS,
         payload: data,
       });
-
-      const { data: newData } = await axiosInstance.get(`/api/todos`, config);
-      dispatch({
-        type: TODO_FETCH_SUCCESS,
-        payload: newData,
-      });
     } catch (error: any) {
       dispatch({
         type: TODO_DELETE_FAIL,
@@ -132,60 +121,18 @@ export const deleteTodo = (id: string) => {
 export const fetchTodo = (id: string) => {
   return async (dispatch: Dispatch) => {
     try {
-      dispatch({
-        type: TODO_DETAIL_REQUEST,
-        loading: true,
-      });
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-      const { data } = await axiosInstance.get(
-        `/api/todos/${id}`,
-        config
-      );
-
-      dispatch({
-        type: TODO_DETAIL_SUCCESS,
-        payload: data,
-      });
-    } catch (error: any) {
-      dispatch({
-        type: TODO_DETAIL_FAIL,
-        payload: error.response && error.response.data.message,
-      });
-    }
-  };
-};
-
-//UPDATE TODO
-
-export const updateTodo = (id: string, todoData: ITodo) => {
-  return async (dispatch: Dispatch) => {
-    try {
-      dispatch({
-        type: TODO_UPDATE_REQUEST,
-        loading: true,
-      });
+      dispatch(todoRequest());
 
       const config = {
         headers: {
           "Content-Type": "application/json",
         },
       };
-      await axiosInstance.put(`/api/todos/${id}`, todoData, config);
-      const { data: newData } = await axiosInstance.get(`/api/todos`);
-      dispatch({
-        type: TODO_UPDATE_SUCCESS,
-        payload: newData,
-      });
+      const { data } = await axiosInstance.get(`/api/todos/${id}`, config);
+
+      dispatch(todoSuccess(data));
     } catch (error: any) {
-      dispatch({
-        type: TODO_UPDATE_FAIL,
-        loading: false,
-        payload: error.response && error.response.data.message,
-      });
+      dispatch(todoFail(error.response && error.response.data.message));
     }
   };
 };
@@ -195,10 +142,7 @@ export const updateTodo = (id: string, todoData: ITodo) => {
 export const completeTodo = (id: string, completed: boolean) => {
   return async (dispatch: Dispatch) => {
     try {
-      dispatch({
-        type: TODO_COMPLETE_REQUEST,
-        loading: true,
-      });
+      dispatch(todoCompleteRequest());
 
       const config = {
         headers: {
@@ -210,18 +154,14 @@ export const completeTodo = (id: string, completed: boolean) => {
         { completed },
         config
       );
-      const { data: newData } = await axiosInstance.get(`/api/todos`);
-      console.log(newData, "newData");
-      dispatch({
-        type: TODO_COMPLETE_SUCCESS,
-        payload: { ...newData, completed },
-      });
+      const { data } = await axiosInstance.get(`/api/todos`);
+      const newData = {
+        ...data,
+        completed,
+      };
+      dispatch(todoCompleteSuccess(newData));
     } catch (error: any) {
-      dispatch({
-        type: TODO_COMPLETE_FAIL,
-        loading: false,
-        payload: error.response && error.response.data.message,
-      });
+      dispatch(todoCompleteFail(error.response && error.response.data.message));
     }
   };
 };
