@@ -11,11 +11,9 @@ function ProtectedRoute({
   component: Component,
   ...rest
 }: IProtectedRouteProps) {
-  const { data: userInfo } = useSelector(
-    (state: RootStateOrAny) => state.userInfo
-  );
+  const { data: user } = useSelector((state: RootStateOrAny) => state.user);
 
-  const isAuthenticated = !_.isEmpty(userInfo);
+  const isAuthenticated = !_.isEmpty(user);
   return (
     <Route
       {...rest}

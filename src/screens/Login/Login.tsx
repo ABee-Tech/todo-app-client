@@ -22,9 +22,9 @@ const Login: React.FC<IChildProps> = ({ history }) => {
 
   const {
     loading,
-    data: userInfo,
+    data: user,
     error,
-  } = useSelector((state: RootState) => state.userInfo);
+  } = useSelector((state: RootState) => state.user);
 
   const {
     register,
@@ -38,12 +38,12 @@ const Login: React.FC<IChildProps> = ({ history }) => {
   };
 
   useEffect(() => {
-    console.log(userInfo, "changedUserInfo");
-    if (!_.isEmpty(userInfo)) {
+    console.log(user, "changedUserInfo");
+    if (!_.isEmpty(user)) {
       history.push("/");
       window.location.reload();
     }
-  }, [userInfo, history]);
+  }, [user, history]);
 
   return (
     <div className="row h-screen flex items-center justify-center bg-bluish-200">

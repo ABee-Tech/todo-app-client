@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IUserInfoState } from "../../types";
+import { IUserState } from "../../types";
 
-interface IUserInfoSliceState {
-  data: Partial<IUserInfoState>;
+interface IUserSliceState {
+  data: Partial<IUserState>;
   loading: boolean;
   error: string;
 }
@@ -13,21 +13,21 @@ const userAuthData = localStorage.getItem("userAuthData");
 
 const userAuthFromStorage = userAuthData ? JSON.parse(userAuthData) : {};
 
-const userInfoInitialState: IUserInfoSliceState = {
+const userInitialState: IUserSliceState = {
   data: userAuthFromStorage,
   loading: false,
   error: "",
 };
 
-export const userInfoSlice = createSlice({
-  name: "userInfo",
-  initialState: userInfoInitialState,
+export const userSlice = createSlice({
+  name: "user",
+  initialState: userInitialState,
   reducers: {
     // Register
     userRegisterRequest: (state) => {
       state.loading = true;
     },
-    userRegisterSuccess: (state, action: PayloadAction<IUserInfoState>) => {
+    userRegisterSuccess: (state, action: PayloadAction<IUserState>) => {
       state.loading = false;
       state.data = action.payload;
     },
@@ -39,7 +39,7 @@ export const userInfoSlice = createSlice({
     userLoginRequest: (state) => {
       state.loading = true;
     },
-    userLoginSuccess: (state, action: PayloadAction<IUserInfoState>) => {
+    userLoginSuccess: (state, action: PayloadAction<IUserState>) => {
       state.loading = false;
       state.data = action.payload;
     },
@@ -57,7 +57,7 @@ export const userInfoSlice = createSlice({
     userUpdateRequest: (state) => {
       state.loading = true;
     },
-    userUpdateSuccess: (state, action: PayloadAction<IUserInfoState>) => {
+    userUpdateSuccess: (state, action: PayloadAction<IUserState>) => {
       state.loading = false;
       state.data = action.payload;
     },
@@ -79,4 +79,4 @@ export const {
   userUpdateRequest,
   userUpdateSuccess,
   userUpdateFail,
-} = userInfoSlice.actions;
+} = userSlice.actions;

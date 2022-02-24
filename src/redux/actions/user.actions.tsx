@@ -8,19 +8,12 @@ import {
   userLoginSuccess,
   userLoginFail,
   userLogout,
-} from "../reducers/userInfo.reducers";
+} from "../reducers/user.reducers";
 
 import {
-  USER_LOGOUT,
-  USER_PROFILE_REQUEST,
-  USER_PROFILE_SUCCESS,
-  USER_PROFILE_FAIL,
   USER_UPDATE_REQUEST,
   USER_UPDATE_SUCCESS,
   USER_UPDATE_FAIL,
-  USER_FETCH_REQUEST,
-  USER_FETCH_FAIL,
-  USER_FETCH_SUCCESS,
 } from "../actionTypes";
 import { RootStateOrAny } from "react-redux";
 
@@ -39,7 +32,7 @@ export const registerUser = (
       };
 
       const { data } = await axiosInstance.post(
-        process.env.REACT_APP_API_URL + "/api/users",
+        "/users",
         {
           name,
           email,
@@ -75,7 +68,7 @@ export const loginUser = (email: string, password: string) => {
         },
       };
       const { data } = await axiosInstance.post(
-        process.env.REACT_APP_API_URL + "/api/users/login",
+        "/users/login",
         { email, password },
         config
       );
@@ -97,36 +90,12 @@ export const logoutUser = () => {
   };
 };
 
-export const getUserProfile = () => {
-  return async (dispatch: Dispatch, getState: RootStateOrAny) => {
-    const { userInfo } = getState().userLogin;
-    try {
-      dispatch({
-        type: USER_PROFILE_REQUEST,
-      });
-      const config = {
-        headers: {
-          authorization: `Bearer ${userInfo.token}`,
-        },
-      };
-      const { data } = await axiosInstance.get(
-        process.env.REACT_APP_API_URL + "/api/users/profile",
-        config
-      );
-      dispatch({
-        type: USER_PROFILE_SUCCESS,
-        payload: data,
-      });
-    } catch (error: any) {
-      dispatch({
-        type: USER_PROFILE_FAIL,
-        payload: error.response && error.response.data.message,
-      });
-    }
-  };
-};
-
-export const updateUser = (name: string, email: string, password: string) => {
+export const updateUser = (
+  name: string,
+  email: string,
+  oldPassword: string,
+  newPassword: string
+) => {
   return async (dispatch: Dispatch, getState: RootStateOrAny) => {
     try {
       dispatch({
@@ -144,8 +113,8 @@ export const updateUser = (name: string, email: string, password: string) => {
         },
       };
       const { data } = await axiosInstance.put(
-        process.env.REACT_APP_API_URL + "/api/users/profile/update",
-        { name, email, password },
+        "/users",
+        { name, email, oldPassword, newPassword },
         config
       );
       dispatch({

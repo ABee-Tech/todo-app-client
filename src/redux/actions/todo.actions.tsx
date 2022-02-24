@@ -1,25 +1,5 @@
 import { axiosInstance } from "../../utils/axios";
 import { Dispatch } from "redux";
-import {
-  TODO_CREATE_FAIL,
-  TODO_CREATE_REQUEST,
-  TODO_CREATE_SUCCESS,
-  TODO_FETCH_FAIL,
-  TODO_FETCH_REQUEST,
-  TODO_FETCH_SUCCESS,
-  TODO_DELETE_FAIL,
-  TODO_DELETE_SUCCESS,
-  TODO_DELETE_REQUEST,
-  TODO_DETAIL_SUCCESS,
-  TODO_DETAIL_FAIL,
-  TODO_DETAIL_REQUEST,
-  TODO_UPDATE_SUCCESS,
-  TODO_UPDATE_REQUEST,
-  TODO_UPDATE_FAIL,
-  TODO_COMPLETE_SUCCESS,
-  TODO_COMPLETE_FAIL,
-  TODO_COMPLETE_REQUEST,
-} from "../actionTypes";
 import { ITodoState } from "@types";
 import {
   todoCompleteFail,
@@ -28,6 +8,9 @@ import {
   todoCreateFail,
   todoCreateRequest,
   todoCreateSuccess,
+  todoDeleteFail,
+  todoDeleteRequest,
+  todoDeleteSuccess,
   todoFail,
   todoListFetchFail,
   todoListFetchRequest,
@@ -48,11 +31,7 @@ export const createTodo = (todoData: Partial<ITodoState>) => {
           "Content-Type": "application/json",
         },
       };
-      const { data } = await axiosInstance.post(
-        process.env.REACT_APP_API_URL + "/api/todos",
-        todoData,
-        config
-      );
+      const { data } = await axiosInstance.post("/todos", todoData, config);
 
       dispatch(todoCreateSuccess(data));
     } catch (error: any) {
@@ -73,10 +52,7 @@ export const fetchTodos = () => {
           "Content-Type": "application/json",
         },
       };
-      const { data } = await axiosInstance.get(
-        process.env.REACT_APP_API_URL + "/api/todos",
-        config
-      );
+      const { data } = await axiosInstance.get("/todos", config);
 
       dispatch(todoListFetchSuccess(data));
     } catch (error: any) {
@@ -92,27 +68,17 @@ export const fetchTodos = () => {
 export const deleteTodo = (id: string) => {
   return async (dispatch: Dispatch) => {
     try {
-      dispatch({
-        type: TODO_DELETE_REQUEST,
-        loading: true,
-      });
+      dispatch(todoDeleteRequest());
 
       const config = {
         headers: {
           "Content-Type": "application/json",
         },
       };
-      const { data } = await axiosInstance.delete(`/api/todos/${id}`, config);
-      dispatch({
-        type: TODO_DELETE_SUCCESS,
-        payload: data,
-      });
+      await axiosInstance.delete(`/todos/${id}`, config);
+      dispatch(todoDeleteSuccess(id));
     } catch (error: any) {
-      dispatch({
-        type: TODO_DELETE_FAIL,
-        loading: false,
-        payload: error.response && error.response.data.message,
-      });
+      dispatch(todoDeleteFail(error.response && error.response.data.message));
     }
   };
 };
@@ -128,7 +94,7 @@ export const fetchTodo = (id: string) => {
           "Content-Type": "application/json",
         },
       };
-      const { data } = await axiosInstance.get(`/api/todos/${id}`, config);
+      const { data } = await axiosInstance.get(`/todos/${id}`, config);
 
       dispatch(todoSuccess(data));
     } catch (error: any) {
@@ -149,17 +115,12 @@ export const completeTodo = (id: string, completed: boolean) => {
           "Content-Type": "application/json",
         },
       };
-      await axiosInstance.put(
-        `/api/todos/${id}/completed`,
+      const { data } = await axiosInstance.put(
+        `/todos/${id}/completed`,
         { completed },
         config
       );
-      const { data } = await axiosInstance.get(`/api/todos`);
-      const newData = {
-        ...data,
-        completed,
-      };
-      dispatch(todoCompleteSuccess(newData));
+      dispatch(todoCompleteSuccess(data));
     } catch (error: any) {
       dispatch(todoCompleteFail(error.response && error.response.data.message));
     }
