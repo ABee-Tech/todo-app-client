@@ -1,4 +1,4 @@
-export interface IUserInfoState {
+export interface IUserState {
   _id: string;
   name: string;
   email: string;
