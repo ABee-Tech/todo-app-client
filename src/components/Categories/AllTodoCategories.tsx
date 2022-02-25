@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
-import Loading from "../Loading/Loading";
+import { useDispatch, useSelector } from "react-redux";
 import Todo from "../Todos/Todo";
 
 import { fetchTodos } from "../../redux/actions/todo.actions";
@@ -9,12 +8,13 @@ import InfoMessage from "../DisplayMessage/InfoMessage";
 import Modal from "../Modal/Modal";
 import AddTodo from "../Todos/AddTodo";
 import { ITodoState } from "@types";
+import { RootState } from "../../redux/store/store";
 
 function AllCategories() {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
-  const { todos, loading } = useSelector(
-    (state: RootStateOrAny) => state.todoList
+  const { data: todos, loading } = useSelector(
+    (state: RootState) => state.todoList
   );
   useEffect(() => {
     dispatch(fetchTodos());
