@@ -1,6 +1,5 @@
 {
     "compilerOptions": {
-        "outDir": "./dist/",
         "noImplicitAny": true,
         "module": "esnext",
         "target": "es5",
@@ -15,21 +14,19 @@
         "noEmit": true,
         "resolveJsonModule": true,
         "isolatedModules": true,
+        "baseUrl": ".",
         "paths": {
-            "*": [
-                "./node_modules/*"
-            ],
             "@components/*": [
-                "./src/components/*"
-            ],
-            "@types": [
-                "./src/types"
+                "src/components/*"
             ],
             "@types/*": [
-                "./src/types/*"
+                "src/types/*"
+            ],
+            "@types": [
+                "src/types"
             ],
             "@utils/*": [
-                "./src/utils/*"
+                "src/utils/*"
             ]
         },
     }

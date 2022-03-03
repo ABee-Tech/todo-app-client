@@ -37,7 +37,7 @@ const Navigation = ({ children }: INavigationProps) => {
   const dispatch = useDispatch();
 
   return (
-    <div className="w-screen flex">
+    <div className="w-screen h-screen flex flex-1 row">
       <header>
         <div className="w-48 h-screen bg-darkblue-900 p-5 flex flex-col fixed">
           <NavLink
@@ -73,19 +73,6 @@ const Navigation = ({ children }: INavigationProps) => {
                 Home
               </NavLinkNav>
             </li>
-
-            <li className="w-full nav-item">
-              <NavLinkNav className="nav-link" to="/categories">
-                <BiCategory />
-                Categories
-              </NavLinkNav>
-            </li>
-            <li className="w-full nav-item">
-              <NavLinkNav className="nav-link" to="/analytics">
-                <RiPieChartLine />
-                Analytics
-              </NavLinkNav>
-            </li>
             <li className="w-full nav-item">
               <NavLinkNav className="nav-link" to="/settings">
                 <FiSettings />
@@ -106,7 +93,9 @@ const Navigation = ({ children }: INavigationProps) => {
           </ul>
         </div>
       </header>
-      <div className="px-5 py-4 w-full ml-48">{children}</div>
+      <div className="w-screen pl-48">
+        <div className="px-5 py-4">{children}</div>
+      </div>
     </div>
   );
 };

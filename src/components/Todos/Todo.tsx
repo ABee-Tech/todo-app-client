@@ -52,11 +52,7 @@ const Todo: React.FC<ITodoProps> = ({
               !isChecked && `bg-grey-500 border-grey-500`
             }`}
           >
-            <BsCheckLg
-              className={`text-xs text-purple-500 ${
-                !isChecked && `text-slate-50`
-              }`}
-            />
+            {!isChecked && <BsCheckLg className={`text-xs text-slate-50`} />}
           </div>
           <span
             className={`font-semibold overflow-hidden relative flex items-center ${

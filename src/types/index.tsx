@@ -11,4 +11,13 @@ export interface ITodoState {
   title: string;
   description: string;
   completed: boolean;
+  createdBy: string;
+}
+
+export interface ITodoCategoryState {
+  _id: string;
+  name: string;
+  progress: number;
+  color: string;
+  createdBy: string;
 }

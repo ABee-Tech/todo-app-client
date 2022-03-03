@@ -10,7 +10,8 @@ interface IAddTodoCategoryProps {
 }
 
 interface IFormData {
-  title?: string;
+  name?: string;
+  color?: string;
 }
 
 const AddTodoCategory = ({ setOpen }: IAddTodoCategoryProps) => {
@@ -24,9 +25,10 @@ const AddTodoCategory = ({ setOpen }: IAddTodoCategoryProps) => {
   } = useForm();
 
   //submit form
-  const formSubmitHandler = ({ title }: IFormData) => {
+  const formSubmitHandler = ({ name, color }: IFormData) => {
     const data = {
-      title,
+      name,
+      color,
     };
     dispatch(createTodoCategory(data));
     setOpen(false);
@@ -37,11 +39,22 @@ const AddTodoCategory = ({ setOpen }: IAddTodoCategoryProps) => {
       <fieldset>
         <FormInput
           type="text"
-          id="title"
-          placeholder="TodoCategory"
-          errorText={errors?.title?.message}
-          {...register("title", {
-            required: "TodoCategory is required",
+          id="name"
+          placeholder="Todo Category"
+          errorText={errors?.name?.message}
+          {...register("name", {
+            required: "Todo category is required",
+          })}
+        />
+      </fieldset>
+      <fieldset>
+        <FormInput
+          type="text"
+          id="color"
+          placeholder="Color"
+          errorText={errors?.color?.message}
+          {...register("color", {
+            required: "Color is required",
           })}
         />
       </fieldset>
