@@ -13,6 +13,36 @@
   box-sizing: border-box;
 }
 
+/*
+ * For Firefox scrollbar
+ */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: theme("colors.gray.400") theme("colors.gray.300");
+}
+
+/*
+ * Globals scrollbar
+ */
+*::-webkit-scrollbar {
+  width: 12px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: theme("colors.gray.300");
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: theme("colors.gray.400");
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: theme("colors.gray.400");
+}
+
 html {
   font-family: sans-serif;
   line-height: 1.15;
