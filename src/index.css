@@ -25,22 +25,26 @@
  * Globals scrollbar
  */
 *::-webkit-scrollbar {
-  width: 12px;
+  width: 26px;
   height: 10px;
 }
 
 *::-webkit-scrollbar-track {
-  background: theme("colors.gray.300");
-  border-radius: 10px;
+  border: 8px solid rgba(0, 0, 0, 0);
+  background-clip: padding-box;
+  background-color: theme("colors.gray.300");
+  border-radius: 25px;
 }
 
 *::-webkit-scrollbar-thumb {
-  background: theme("colors.gray.400");
-  border-radius: 10px;
+  border: 8px solid rgba(0, 0, 0, 0);
+  background-clip: padding-box;
+  background-color: theme("colors.gray.400");
+  border-radius: 25px;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background: theme("colors.gray.400");
+  background-color: theme("colors.gray.400");
 }
 
 html {
