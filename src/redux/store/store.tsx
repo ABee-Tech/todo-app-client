@@ -1,12 +1,18 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { todoListSlice, todoSlice } from "../reducers/todo.reducers";
 import { userSlice } from "../reducers/user.reducers";
+import {
+  todoCategoryListSlice,
+  todoCategorySlice,
+} from "../reducers/todoCategory.reducers";
 
 export const store = configureStore({
   reducer: {
     user: userSlice.reducer,
     todoList: todoListSlice.reducer,
     todo: todoSlice.reducer,
+    todoCategory: todoCategorySlice.reducer,
+    todoCategoryList: todoCategoryListSlice.reducer,
   },
 });
 

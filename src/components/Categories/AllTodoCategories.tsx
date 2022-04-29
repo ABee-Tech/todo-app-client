@@ -1,29 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Todo from "../Todos/Todo";
+import TodoCategory from "./TodoCategory";
 
-import { fetchTodos } from "../../redux/actions/todo.actions";
+import { fetchTodoCategories } from "../../redux/actions/todoCategory.actions";
 import { Heading, HeadingWithAction, LinkButton } from "../../styles/styles";
 import InfoMessage from "../DisplayMessage/InfoMessage";
 import Modal from "../Modal/Modal";
-import AddTodo from "../Todos/AddTodo";
-import { ITodoState } from "@types";
+import AddTodoCategory from "./AddTodoCategory";
+import { ITodoCategoryState } from "@types";
 import { RootState } from "../../redux/store/store";
+import styled from "styled-components";
+import tw from "twin.macro";
 
-function AllCategories() {
+const HCategoryScrollContainer = styled.div`
+  ${tw`flex overflow-x-auto pb-4`}
+`;
+
+function AllTodoCategories() {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
-  const { data: todos, loading } = useSelector(
-    (state: RootState) => state.todoList
+  const { data: todoCategories, loading } = useSelector(
+    (state: RootState) => state.todoCategoryList
   );
   useEffect(() => {
-    dispatch(fetchTodos());
+    dispatch(fetchTodoCategories());
   }, [dispatch]);
   // if (loading) return <Loading className="text-grey-500" />;
   return (
-    <div className="row">
-      <Modal title="Add Todo" open={showModal} setOpen={setShowModal}>
-        <AddTodo setOpen={setShowModal} />
+    <div className="pb-4 border-b-gray-300 border-b mb-4">
+      <Modal title="Add Todo Category" open={showModal} setOpen={setShowModal}>
+        <AddTodoCategory setOpen={setShowModal} />
       </Modal>
       <HeadingWithAction>
         <Heading className="uppercase">All Categories</Heading>
@@ -31,17 +37,22 @@ function AllCategories() {
           + Add Category
         </LinkButton>
       </HeadingWithAction>
-      <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
-        {todos && todos.length ? (
-          todos.map((todo: ITodoState) => {
-            return <Todo className="col-3" key={todo._id} todo={todo} />;
+      <HCategoryScrollContainer>
+        {todoCategories && todoCategories.length ? (
+          todoCategories.map((todoCategory: ITodoCategoryState) => {
+            return (
+              <TodoCategory
+                key={todoCategory._id}
+                todoCategory={todoCategory}
+              />
+            );
           })
         ) : (
-          <InfoMessage message={"No tasks?? Hurray!!"} />
+          <InfoMessage message={"There are no categories."} />
         )}
-      </div>
+      </HCategoryScrollContainer>
     </div>
   );
 }
 
-export default AllCategories;
+export default AllTodoCategories;

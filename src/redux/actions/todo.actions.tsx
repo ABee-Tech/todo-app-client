@@ -18,6 +18,7 @@ import {
   todoRequest,
   todoSuccess,
 } from "../reducers/todo.reducers";
+import { fetchTodoCategories } from "./todoCategory.actions";
 
 //Create todo
 
@@ -34,6 +35,8 @@ export const createTodo = (todoData: Partial<ITodoState>) => {
       const { data } = await axiosInstance.post("/todos", todoData, config);
 
       dispatch(todoCreateSuccess(data));
+
+      dispatch<any>(fetchTodoCategories());
     } catch (error: any) {
       dispatch(todoCreateFail(error.response && error.response.data.message));
     }
@@ -77,6 +80,7 @@ export const deleteTodo = (id: string) => {
       };
       await axiosInstance.delete(`/todos/${id}`, config);
       dispatch(todoDeleteSuccess(id));
+      dispatch<any>(fetchTodoCategories());
     } catch (error: any) {
       dispatch(todoDeleteFail(error.response && error.response.data.message));
     }
@@ -121,6 +125,7 @@ export const completeTodo = (id: string, completed: boolean) => {
         config
       );
       dispatch(todoCompleteSuccess(data));
+      dispatch<any>(fetchTodoCategories());
     } catch (error: any) {
       dispatch(todoCompleteFail(error.response && error.response.data.message));
     }
