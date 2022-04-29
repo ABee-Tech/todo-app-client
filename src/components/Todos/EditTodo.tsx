@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { createTodo } from "../../redux/actions/todo.actions";
 import { useDispatch, useSelector } from "react-redux";
-import { PrimaryButton } from "../../styles/styles";
+import { SecondaryButton } from "../../styles/styles";
 import { useForm } from "react-hook-form";
 import FormInput from "../FormInput/FormInput";
 import { ITodoState } from "@types";
@@ -9,15 +9,16 @@ import Select from "../Select/Select";
 import { RootState } from "src/redux/store/store";
 import _ from "lodash";
 
-interface IAddTodoProps {
+interface IEditTodoProps {
   setOpen: any;
+  state?: ITodoState;
 }
 interface ITodoCategoryOption {
   label: string;
   value: string;
 }
 
-const AddTodo = ({ setOpen }: IAddTodoProps) => {
+const EditTodo = ({ setOpen, state }: IEditTodoProps) => {
   const [todoCategoryList, setTodoCategoryList] = useState<
     ITodoCategoryOption[]
   >([]);
@@ -45,6 +46,8 @@ const AddTodo = ({ setOpen }: IAddTodoProps) => {
     setOpen(false);
   };
 
+  console.log(state, "state");
+
   useEffect(() => {
     setTodoCategoryList(
       todoCategories.map((category: any) => ({
@@ -62,6 +65,7 @@ const AddTodo = ({ setOpen }: IAddTodoProps) => {
           id="title"
           placeholder="Todo"
           errorText={errors?.title?.message}
+          defaultValue={state?.title || ""}
           {...register("title", {
             required: "Todo is required",
           })}
@@ -83,21 +87,22 @@ const AddTodo = ({ setOpen }: IAddTodoProps) => {
             options={[{ label: "", value: "" }, ...todoCategoryList]}
             label="Category"
             errorText={errors?.category?.message}
+            defaultValue={state?.category?._id || ""}
             {...register("category", {
               required: "Category is required",
             })}
           />
         )}
       </fieldset>
-      <PrimaryButton
+      <SecondaryButton
         disabled={errors?.title || errors?.category}
         onClick={handleSubmit(formSubmitHandler)}
         className="w-full"
       >
-        Add
-      </PrimaryButton>
+        Edit
+      </SecondaryButton>
     </form>
   );
 };
 
-export default AddTodo;
+export default EditTodo;

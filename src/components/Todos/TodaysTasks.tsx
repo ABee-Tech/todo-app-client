@@ -22,7 +22,7 @@ function TodaysTasks() {
   }, [dispatch]);
   // if (loading) return <Loading className="text-grey-500" />;
   return (
-    <div className="row">
+    <div className="flex flex-col overflow-hidden">
       <Modal title="Add Todo" open={showModal} setOpen={setShowModal}>
         <AddTodo setOpen={setShowModal} />
       </Modal>
@@ -30,7 +30,7 @@ function TodaysTasks() {
         <Heading className="uppercase">Today's Tasks</Heading>
         <LinkButton onClick={() => setShowModal(true)}>+ Add Todo</LinkButton>
       </HeadingWithAction>
-      <div className="col">
+      <div className="overflow-auto">
         {todos && todos.length ? (
           todos.map((todo: ITodoState) => {
             return <Todo key={todo._id} todo={todo} />;
