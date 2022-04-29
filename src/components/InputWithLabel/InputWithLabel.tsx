@@ -27,7 +27,7 @@ const InputWithLabel = React.forwardRef<any, IInputWithLabelProps>(
         <input
           className="flex-grow border border-gray-400 rounded-lg text-md px-2.5 pb-1 pt-5 outline-1 outline-blue-100"
           {...props}
-          onFocus={() => setInputFocus(true)}
+          onFocus={(e) => e.target.value && setInputFocus(true)}
           onBlur={(e) => e.target.value || setInputFocus(false)}
           ref={ref}
         />

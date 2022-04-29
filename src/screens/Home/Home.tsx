@@ -6,7 +6,7 @@ import AllTodoCategories from "../../components/Categories/AllTodoCategories";
 
 const Home: React.ReactNode = () => {
   return (
-    <Navigation>
+    <Navigation className="h-screen overflow-hidden flex flex-col">
       <AllTodoCategories />
       <TodaysTasks />
     </Navigation>

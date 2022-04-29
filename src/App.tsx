@@ -3,8 +3,9 @@ import { BrowserRouter, Route } from "react-router-dom";
 import Home from "./screens/Home/Home";
 import Settings from "./screens/Settings/Settings";
 import Login from "./screens/Login/Login";
-import Register from "./components/Register/Register";
+import Register from "./screens/Register/Register";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import "./App.css";
 
 const App = () => {
   return (

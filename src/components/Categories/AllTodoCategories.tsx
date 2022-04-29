@@ -13,26 +13,7 @@ import styled from "styled-components";
 import tw from "twin.macro";
 
 const HCategoryScrollContainer = styled.div`
-  ${tw`flex overflow-x-scroll overflow-y-hidden pb-4`}
-
-  ::-webkit-scrollbar {
-    width: 12px;
-    height: 12px;
-  }
-
-  ::-webkit-scrollbar-track {
-    ${tw`bg-gray-300`}
-    border-radius: 10px;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    ${tw`bg-gray-400`}
-    border-radius: 10px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    ${tw`bg-gray-400`}
-  }
+  ${tw`flex overflow-x-auto pb-4`}
 `;
 
 function AllTodoCategories() {

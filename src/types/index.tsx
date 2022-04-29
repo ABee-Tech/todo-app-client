@@ -9,15 +9,18 @@ export interface IUserState {
 export interface ITodoState {
   _id: string;
   title: string;
-  description: string;
   completed: boolean;
+  category: any;
   createdBy: string;
+  [key: string]: any;
 }
 
 export interface ITodoCategoryState {
   _id: string;
   name: string;
-  progress: number;
+  total_count: number;
+  completed_count: number;
   color: string;
   createdBy: string;
+  isDefault: boolean;
 }

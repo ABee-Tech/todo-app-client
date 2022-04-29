@@ -29,9 +29,10 @@ const NavLinkNav = styled(NavLink)`
 
 interface INavigationProps {
   children: React.ReactNode;
+  className?: string;
 }
 
-const Navigation = ({ children }: INavigationProps) => {
+const Navigation = ({ children, className }: INavigationProps) => {
   const defaultProfileImg = "./assets/img/portrait.jpg";
 
   const dispatch = useDispatch();
@@ -94,7 +95,7 @@ const Navigation = ({ children }: INavigationProps) => {
         </div>
       </header>
       <div className="w-screen pl-48">
-        <div className="px-5 py-4">{children}</div>
+        <div className={`px-5 py-4 h-full ${className}`}>{children}</div>
       </div>
     </div>
   );
