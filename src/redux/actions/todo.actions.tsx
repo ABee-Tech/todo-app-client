@@ -19,6 +19,7 @@ import {
   todoSuccess,
 } from "../reducers/todo.reducers";
 import { fetchTodoCategories } from "./todoCategory.actions";
+import { toast } from "react-toastify";
 
 //Create todo
 
@@ -35,9 +36,11 @@ export const createTodo = (todoData: Partial<ITodoState>) => {
       const { data } = await axiosInstance.post("/todos", todoData, config);
 
       dispatch(todoCreateSuccess(data));
+      toast.success("Todo added successfully");
 
       dispatch<any>(fetchTodoCategories());
     } catch (error: any) {
+      toast.error(`Sorry! ${error.response && error.response.data.message}`);
       dispatch(todoCreateFail(error.response && error.response.data.message));
     }
   };

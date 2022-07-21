@@ -6,6 +6,7 @@ import Login from "./screens/Login/Login";
 import Register from "./screens/Register/Register";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import "./App.css";
+import ToastContainer from "./components/ToastContainer/ToastContainer";
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
       </BrowserRouter>
+      <ToastContainer />
     </>
   );
 };

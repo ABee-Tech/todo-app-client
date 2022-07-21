@@ -5,7 +5,7 @@ import { SecondaryButton } from "../../styles/styles";
 import { useForm } from "react-hook-form";
 import FormInput from "../FormInput/FormInput";
 import { ITodoState } from "@types";
-import Select from "../Select/Select";
+import Select from "../SelectWithLabel/SelectWithLabel";
 import { RootState } from "src/redux/store/store";
 import _ from "lodash";
 
@@ -72,7 +72,7 @@ const EditTodo = ({ setOpen, state }: IEditTodoProps) => {
         />
       </fieldset>
       <fieldset>
-        {_.isEmpty(todoCategoryList) ? (
+        {/* {_.isEmpty(todoCategoryList) ? (
           <Select
             disabled={true}
             options={[{ label: "No categories", value: "" }]}
@@ -92,7 +92,7 @@ const EditTodo = ({ setOpen, state }: IEditTodoProps) => {
               required: "Category is required",
             })}
           />
-        )}
+        )} */}
       </fieldset>
       <SecondaryButton
         disabled={errors?.title || errors?.category}

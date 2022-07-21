@@ -11,26 +11,21 @@ interface IInputWithLabelProps {
 
 const InputWithLabel = React.forwardRef<any, IInputWithLabelProps>(
   ({ label = "", onChangeText, errorText, ...props }, ref) => {
-    const [inputFocus, setInputFocus] = useState(false);
     return (
-      <div className="w-full flex flex-col mb-2 relative">
+      <div className="w-full flex flex-col mb-2 relative form-control input-control">
+        <input
+          {...props}
+          className="flex-grow border border-gray-400 rounded-lg text-md px-2.5 pb-1 pt-5 outline-1 outline-blue-100 h-12"
+          placeholder=" "
+          ref={ref}
+        />
+
         <label
           htmlFor={props.id}
           className="text-lg absolute text-gray-400 left-3 top--1/2 duration-300 m-0"
-          style={{
-            transform: inputFocus ? "translate(0, 0%)" : "translate(0, 40%)",
-            fontSize: inputFocus ? "0.95rem" : "1.125rem",
-          }}
         >
           {label}
         </label>
-        <input
-          className="flex-grow border border-gray-400 rounded-lg text-md px-2.5 pb-1 pt-5 outline-1 outline-blue-100"
-          {...props}
-          onFocus={(e) => e.target.value && setInputFocus(true)}
-          onBlur={(e) => e.target.value || setInputFocus(false)}
-          ref={ref}
-        />
         {errorText && <ErrorMessage>{errorText}</ErrorMessage>}
       </div>
     );

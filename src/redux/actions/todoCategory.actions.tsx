@@ -14,6 +14,7 @@ import {
   todoCategoryDeleteSuccess,
   todoCategoryDeleteFail,
 } from "../reducers/todoCategory.reducers";
+import { toast } from "react-toastify";
 
 interface ITodoCategory {
   name?: string;
@@ -36,9 +37,10 @@ export const createTodoCategory = (todoCategoryData: ITodoCategory) => {
         todoCategoryData,
         config
       );
-
+      toast.success("Todo category created successfully");
       dispatch(todoCategoryCreateSuccess(data));
     } catch (error: any) {
+      toast.error(`Sorry! ${error.response.data.message}`);
       dispatch(todoCategoryCreateFail(error.response.data.message));
     }
   };
