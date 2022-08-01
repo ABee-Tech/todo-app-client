@@ -1,17 +1,19 @@
-import React from 'react';
-import { deleteTodoCategory } from '../../redux/actions/todoCategory.actions';
-import { useDispatch } from 'react-redux';
-import { BiTrash, BiEdit } from 'react-icons/bi';
-import styled from 'styled-components';
-import tw from 'twin.macro';
-import { ITodoCategoryState } from '@types';
+import React, { useState } from "react";
+import { deleteTodoCategory } from "../../redux/actions/todoCategory.actions";
+import { useDispatch } from "react-redux";
+import { BiTrash, BiEdit } from "react-icons/bi";
+import styled from "styled-components";
+import tw from "twin.macro";
+import { ITodoCategoryState } from "@types";
+import Modal from "../../components/Modal/Modal";
+import EditTodoCategory from "./EditTodoCategory";
 
 const TodoCategoryColor = styled.span`
   ${tw`
       h-full
       w-8
       `}
-  background-color: ${(props) => (props.color ? props.color : 'transparent')};
+  background-color: ${(props) => (props.color ? props.color : "transparent")};
   &:hover .strike {
     ${tw`right-0`}
   }
@@ -30,6 +32,7 @@ interface ITodoCategoryProps {
 const TodoCategory = ({
   todoCategory,
 }: ITodoCategoryProps & React.HTMLAttributes<HTMLDivElement>) => {
+  const [showModal, setShowModal] = useState<boolean>(false);
   const dispatch = useDispatch();
 
   const progress: string =
@@ -37,10 +40,13 @@ const TodoCategory = ({
       todoCategory.total_count &&
       todoCategory.completed_count &&
       (todoCategory.completed_count / todoCategory.total_count) * 100
-    ).toFixed(2) || '0';
+    ).toFixed(2) || "0";
 
   return (
     <div className="width-full bg-slate-50 flex justify-between rounded-lg shadow-md hover:shadow-lg ease-in duration-150 my-2 overflow-hidden mr-2 min-w-max">
+      <Modal title="Edit Todo" open={showModal} setOpen={setShowModal}>
+        <EditTodoCategory setOpen={setShowModal} state={todoCategory} />
+      </Modal>
       <TodoCategoryColor color={todoCategory.color} />
       <TodoCategoryHolder className="flex-col justify-between py-3 px-3 cursor-pointer flex-1 border-l-2 border-gray-200">
         <div className="flex justify-between w-32">
@@ -56,7 +62,7 @@ const TodoCategory = ({
               <button
                 className="text-green-300 hover:text-green-400 rounded-lg"
                 onClick={() => {
-                  dispatch(deleteTodoCategory(todoCategory._id));
+                  setShowModal(true);
                 }}
               >
                 <BiEdit className="text-lg" />
@@ -73,7 +79,7 @@ const TodoCategory = ({
           )}
         </div>
         <span className="text-xs text-gray-600">
-          {todoCategory.total_count} tasks ({todoCategory.completed_count}{' '}
+          {todoCategory.total_count} tasks ({todoCategory.completed_count}{" "}
           completed)
         </span>
         <div>
@@ -97,10 +103,10 @@ const ProgressBar = ({ progress, progressColor }: IProgressBar) => {
     <div className="flex items-end w-full h-1 bg-gray-200">
       <span
         style={{
-          transition: 'width 0.5s ease-in-out',
+          transition: "width 0.5s ease-in-out",
           backgroundColor: progressColor,
-          height: '105%',
-          width: progress + '%',
+          height: "105%",
+          width: progress + "%",
           boxShadow: `0px 0px 5px ${progressColor}`,
         }}
       />
@@ -108,7 +114,7 @@ const ProgressBar = ({ progress, progressColor }: IProgressBar) => {
         className="h-2"
         style={{
           backgroundColor: progressColor,
-          width: '3px',
+          width: "3px",
         }}
       />
     </div>

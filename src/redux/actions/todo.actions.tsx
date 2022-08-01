@@ -1,6 +1,6 @@
 import { axiosInstance } from "../../utils/axios";
 import { Dispatch } from "redux";
-import { ITodoState } from "@types";
+import { ITodoDispatchActionData } from "@types";
 import {
   todoCompleteFail,
   todoCompleteRequest,
@@ -8,6 +8,9 @@ import {
   todoCreateFail,
   todoCreateRequest,
   todoCreateSuccess,
+  todoUpdateRequest,
+  todoUpdateSuccess,
+  todoUpdateFail,
   todoDeleteFail,
   todoDeleteRequest,
   todoDeleteSuccess,
@@ -23,8 +26,9 @@ import { toast } from "react-toastify";
 
 //Create todo
 
-export const createTodo = (todoData: Partial<ITodoState>) => {
+export const createTodo = (todoDispatchActionData: ITodoDispatchActionData) => {
   return async (dispatch: Dispatch) => {
+    const { data: todoData, onSuccess, onError } = todoDispatchActionData;
     try {
       dispatch(todoCreateRequest());
 
@@ -36,12 +40,46 @@ export const createTodo = (todoData: Partial<ITodoState>) => {
       const { data } = await axiosInstance.post("/todos", todoData, config);
 
       dispatch(todoCreateSuccess(data));
+      onSuccess && onSuccess(data);
       toast.success("Todo added successfully");
 
       dispatch<any>(fetchTodoCategories());
     } catch (error: any) {
+      onError && onError(error);
       toast.error(`Sorry! ${error.response && error.response.data.message}`);
       dispatch(todoCreateFail(error.response && error.response.data.message));
+    }
+  };
+};
+
+//Update todo
+
+export const updateTodo = (todoDispatchActionData: ITodoDispatchActionData) => {
+  return async (dispatch: Dispatch) => {
+    const { data: todoData, onSuccess, onError } = todoDispatchActionData;
+
+    try {
+      dispatch(todoUpdateRequest());
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const id = todoData?._id;
+      delete todoData?._id;
+      const res = await axiosInstance.put(`/todos/${id}`, todoData, config);
+      const { data } = res;
+
+      dispatch(todoUpdateSuccess(data));
+      onSuccess && onSuccess(res);
+      toast.success("Todo edited successfully");
+
+      dispatch<any>(fetchTodoCategories());
+    } catch (error: any) {
+      onError && onError(error);
+      toast.error(`Sorry! ${error.response && error.response.data.message}`);
+      dispatch(todoUpdateFail(error.response && error.response.data.message));
     }
   };
 };

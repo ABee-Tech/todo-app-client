@@ -86,6 +86,7 @@ export const todoCategoryListSlice = createSlice({
       action: PayloadAction<ITodoCategoryState>
     ) => {
       state.loading = false;
+      console.log("Payload: ", action.payload);
       state.data = state?.data?.map((todoCategory) =>
         todoCategory._id === action.payload._id ? action.payload : todoCategory
       );

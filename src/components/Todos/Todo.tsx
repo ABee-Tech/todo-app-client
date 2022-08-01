@@ -61,7 +61,7 @@ const Todo: React.FC<ITodoProps> = ({
         <div className="flex items-center select-none">
           <CheckCircle
             completed={isChecked}
-            categoryColor={todo.category.color}
+            categoryColor={todo?.category?.color}
           >
             {isChecked && <BsCheckLg className={`text-xs text-slate-50`} />}
           </CheckCircle>

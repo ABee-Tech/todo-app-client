@@ -15,6 +15,8 @@ import {
   todoCategoryDeleteFail,
 } from "../reducers/todoCategory.reducers";
 import { toast } from "react-toastify";
+import { ITodoCategoryDispatchActionData } from "@types";
+import { fetchTodos } from "./todo.actions";
 
 interface ITodoCategory {
   name?: string;
@@ -23,8 +25,15 @@ interface ITodoCategory {
 
 //Create todoCategory
 
-export const createTodoCategory = (todoCategoryData: ITodoCategory) => {
+export const createTodoCategory = (
+  todoCategoryDispatchActionData: ITodoCategoryDispatchActionData
+) => {
   return async (dispatch: Dispatch) => {
+    const {
+      data: todoCategoryData,
+      onSuccess,
+      onError,
+    } = todoCategoryDispatchActionData;
     try {
       dispatch(todoCategoryCreateRequest());
       const config = {
@@ -32,14 +41,19 @@ export const createTodoCategory = (todoCategoryData: ITodoCategory) => {
           "Content-Type": "application/json",
         },
       };
-      const { data } = await axiosInstance.post(
+      const res = await axiosInstance.post(
         process.env.REACT_APP_API_URL + "/todo_categories",
         todoCategoryData,
         config
       );
+
+      const { data } = res;
+
+      onSuccess && onSuccess(res);
       toast.success("Todo category created successfully");
       dispatch(todoCategoryCreateSuccess(data));
     } catch (error: any) {
+      onError && onError(error);
       toast.error(`Sorry! ${error.response.data.message}`);
       dispatch(todoCategoryCreateFail(error.response.data.message));
     }
@@ -93,26 +107,42 @@ export const deleteTodoCategory = (id: string) => {
 //UPDATE TODO_CATEGORY
 
 export const updateTodoCategory = (
-  id: string,
-  todoCategoryData: ITodoCategory
+  todoDispatchActionData: ITodoCategoryDispatchActionData
 ) => {
   return async (dispatch: Dispatch) => {
+    const {
+      data: todoCategoryData,
+      onSuccess,
+      onError,
+    } = todoDispatchActionData;
     try {
       dispatch(todoCategoryUpdateRequest());
+
+      const id = todoCategoryData._id;
+      delete todoCategoryData._id;
 
       const config = {
         headers: {
           "Content-Type": "application/json",
         },
       };
-      await axiosInstance.put(
+      const res = await axiosInstance.put(
         `/todo_categories/${id}`,
         todoCategoryData,
         config
       );
-      const { data: newData } = await axiosInstance.get(`/todo_categories`);
-      dispatch(todoCategoryUpdateSuccess(newData));
+
+      const { data } = res;
+
+      dispatch(todoCategoryUpdateSuccess(data));
+
+      onSuccess && onSuccess(res);
+      toast.success("Todo category edited successfully");
+
+      dispatch<any>(fetchTodos());
     } catch (error: any) {
+      onError && onError(error);
+      toast.error(`Sorry! ${error.response && error.response.data.message}`);
       dispatch(todoCategoryUpdateFail(error.response.data.message));
     }
   };

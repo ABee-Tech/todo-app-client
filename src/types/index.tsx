@@ -1,3 +1,8 @@
+export interface IDropdownSelectOption {
+  value: string;
+  label: string;
+}
+
 export interface IUserState {
   _id: string;
   name: string;
@@ -12,7 +17,6 @@ export interface ITodoState {
   completed: boolean;
   category: any;
   createdBy: string;
-  [key: string]: any;
 }
 
 export interface ITodoCategoryState {
@@ -23,4 +27,17 @@ export interface ITodoCategoryState {
   color: string;
   createdBy: string;
   isDefault: boolean;
+}
+
+// Dispatch Prop
+export interface ITodoDispatchActionData {
+  data: Partial<ITodoState>;
+  onSuccess: (res: any) => void;
+  onError: (err: any) => void;
+}
+
+export interface ITodoCategoryDispatchActionData {
+  data: Partial<ITodoCategoryState>;
+  onSuccess: (res: any) => void;
+  onError: (err: any) => void;
 }
