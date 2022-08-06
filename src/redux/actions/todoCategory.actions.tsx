@@ -98,6 +98,7 @@ export const deleteTodoCategory = (id: string) => {
       await axiosInstance.delete(`/todo_categories/${id}`, config);
 
       dispatch(todoCategoryDeleteSuccess(id));
+      dispatch<any>(fetchTodos());
     } catch (error: any) {
       dispatch(todoCategoryDeleteFail(error.response.data.message));
     }
