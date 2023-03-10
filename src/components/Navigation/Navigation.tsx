@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../redux/actions/user.actions";
 import styled from "styled-components";
 import tw from "twin.macro";
-import { BiHomeAlt, BiCategory } from "react-icons/bi";
-import { RiPieChartLine } from "react-icons/ri";
+import { BiHomeAlt } from "react-icons/bi";
 import { FiSettings, FiLogOut } from "react-icons/fi";
+import CircularProgress from "../CircularProgress/CircularProgress";
+import { RootState } from "src/redux/store/store";
 
 const NavLink = styled(Link)`
   ${tw`text-white hover:text-white focus:text-white active:text-white hover:no-underline focus:no-underline active:no-underline`}
@@ -32,35 +33,31 @@ interface INavigationProps {
   className?: string;
 }
 
-const Navigation = ({ children, className }: INavigationProps) => {
+const Navigation: React.FC<INavigationProps> = ({
+  children,
+  className,
+}: INavigationProps) => {
   const defaultProfileImg = "./assets/img/portrait.jpg";
 
   const dispatch = useDispatch();
+
+  const { data: userData, loading } = useSelector(
+    (state: RootState) => state.user
+  );
 
   return (
     <div className="w-screen h-screen flex flex-1 row">
       <header>
         <div className="w-48 h-screen bg-darkblue-900 p-5 flex flex-col fixed">
-          <NavLink
-            className="text-md text-white w-full flex items-center h-24"
-            to="/"
-          >
-            <div className=" bg-gradient-to-r from-transparent to-pink rounded-full h-24 w-24 flex justify-center items-center overflow-hidden ">
-              <div className=" rounded-full h-full w-full p-1 flex justify-center items-center overflow-hidden">
-                <img
-                  src={defaultProfileImg}
-                  className="overflow-hidden rounded-full h-full w-full object-cover"
-                />
-              </div>
+          <NavLink to="/profile">
+            <div className="text-md text-white w-full flex items-center h-24">
+              <CircularProgress progress={70}>
+                <img src={defaultProfileImg} className="object-cover" />
+              </CircularProgress>
             </div>
-          </NavLink>
-          <NavLink
-            className="text-md text-white w-full flex justify-center flex-col h-32"
-            to="/"
-          >
-            <div>
+            <div className="text-md text-white w-full flex justify-center flex-col h-32">
               <h1 className="text-3xl font-semibold text-white">
-                Olivia Mitchell
+                {userData?.name}
               </h1>
             </div>
           </NavLink>

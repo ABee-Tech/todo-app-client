@@ -41,3 +41,9 @@ export interface ITodoCategoryDispatchActionData {
   onSuccess: (res: any) => void;
   onError: (err: any) => void;
 }
+
+export interface IUserDispatchActionData {
+  data: Partial<IUserState>;
+  onSuccess: (res: any) => void;
+  onError: (err: any) => void;
+}

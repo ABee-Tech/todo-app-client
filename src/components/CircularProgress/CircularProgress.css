@@ -1,0 +1,21 @@
+.circular-progress-container {
+    position: relative;
+    height: 6rem;
+    width: 6rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem;
+}
+
+.circular-progress-contents {
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    background-color: #000000;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

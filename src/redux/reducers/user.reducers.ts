@@ -65,6 +65,18 @@ export const userSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    // Fetch User
+    userFetchRequest: (state) => {
+      state.loading = true;
+    },
+    userFetchSuccess: (state, action: PayloadAction<IUserState>) => {
+      state.loading = false;
+      state.data = action.payload;
+    },
+    userFetchFail: (state, action: PayloadAction<string>) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
   },
 });
 
@@ -79,4 +91,7 @@ export const {
   userUpdateRequest,
   userUpdateSuccess,
   userUpdateFail,
+  userFetchRequest,
+  userFetchSuccess,
+  userFetchFail,
 } = userSlice.actions;

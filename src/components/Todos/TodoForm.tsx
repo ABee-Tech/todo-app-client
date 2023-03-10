@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { PrimaryButton } from "../../styles/styles";
 import { useForm } from "react-hook-form";
 import FormInput from "../FormInput/FormInput";
@@ -17,7 +17,7 @@ interface ITodoFormProps {
   setOpen: any;
   formDispatchAction: (
     data: ITodoDispatchActionData
-  ) => (dispatch: Dispatch) => Promise<void>;
+  ) => (dispatch: Dispatch, getState?: RootStateOrAny) => Promise<void>;
   onError: (err: any) => void;
   onSuccess: (res: any) => void;
   state?: ITodoState;
@@ -49,7 +49,6 @@ const TodoForm = (props: ITodoFormProps) => {
       title,
       category: category.value,
     };
-    console.log(data, "data");
     dispatch(formDispatchAction({ data, onSuccess, onError }));
     setOpen(false);
   };
@@ -101,7 +100,7 @@ const TodoForm = (props: ITodoFormProps) => {
         onClick={handleSubmit(formSubmitHandler)}
         className="w-full"
       >
-        Sumbit
+        Submit
       </PrimaryButton>
     </form>
   );

@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import Home from "./screens/Home/Home";
+import Profile from "./screens/Profile/Profile";
 import Settings from "./screens/Settings/Settings";
 import Login from "./screens/Login/Login";
 import Register from "./screens/Register/Register";
@@ -13,6 +14,7 @@ const App = () => {
     <>
       <BrowserRouter>
         <ProtectedRoute exact path="/" component={Home} />
+        <ProtectedRoute exact path="/profile" component={Profile} />
         <ProtectedRoute exact path="/settings" component={Settings} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />

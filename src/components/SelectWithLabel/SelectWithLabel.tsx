@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { ErrorMessage } from "src/styles/styles";
+import { ErrorMessage } from "../../styles/styles";
 import { Combobox, Transition } from "@headlessui/react";
 import { HiCheck, HiSelector } from "react-icons/hi";
 import "./SelectWithLabel.scss";

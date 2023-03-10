@@ -8,6 +8,12 @@ import {
   userLoginSuccess,
   userLoginFail,
   userLogout,
+  userUpdateRequest,
+  userUpdateSuccess,
+  userUpdateFail,
+  userFetchRequest,
+  userFetchSuccess,
+  userFetchFail,
 } from "../reducers/user.reducers";
 
 import {
@@ -16,6 +22,8 @@ import {
   USER_UPDATE_FAIL,
 } from "../actionTypes";
 import { RootStateOrAny } from "react-redux";
+import { IUserDispatchActionData } from "@types";
+import { toast } from "react-toastify";
 
 export const registerUser = (
   name: string,
@@ -90,21 +98,47 @@ export const logoutUser = () => {
   };
 };
 
-export const updateUser = (
-  name: string,
-  email: string,
-  oldPassword: string,
-  newPassword: string
-) => {
+export const updateUser = (userDispatchActionData: IUserDispatchActionData) => {
+  return async (dispatch: Dispatch, getState: RootStateOrAny) => {
+    const { data: userData, onSuccess, onError } = userDispatchActionData;
+    try {
+      dispatch(userUpdateRequest());
+      console.log(getState().user.data);
+      const { token } = getState().user.data;
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      };
+      const { data } = await axiosInstance.put(
+        "/users/profile/update",
+        userData,
+        config
+      );
+
+      dispatch(userUpdateSuccess(data));
+      localStorage.setItem("userAuthData", JSON.stringify(data));
+
+      onSuccess && onSuccess(data);
+      toast.success("Profile updated successfully");
+
+      dispatch<any>(fetchUser());
+    } catch (error: any) {
+      onError && onError(error);
+      toast.error(`Sorry! ${error.response && error.response.data.message}`);
+      dispatch(userUpdateFail(error.response && error.response.data.message));
+    }
+  };
+};
+
+//Fetch user
+export const fetchUser = () => {
   return async (dispatch: Dispatch, getState: RootStateOrAny) => {
     try {
-      dispatch({
-        type: USER_UPDATE_REQUEST,
-        loading: true,
-      });
-
+      dispatch(userFetchRequest());
       const { userInfo } = getState().userLogin;
-      console.log(userInfo.token);
 
       const config = {
         headers: {
@@ -112,23 +146,11 @@ export const updateUser = (
           authorization: `Bearer ${userInfo.token}`,
         },
       };
-      const { data } = await axiosInstance.put(
-        "/users",
-        { name, email, oldPassword, newPassword },
-        config
-      );
-      dispatch({
-        type: USER_UPDATE_SUCCESS,
-        payload: data,
-      });
+      const { data } = await axiosInstance.get(`/profile`, config);
+
+      dispatch(userFetchSuccess(data));
     } catch (error: any) {
-      dispatch({
-        type: USER_UPDATE_FAIL,
-        payload:
-          error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message,
-      });
+      dispatch(userFetchFail(error.response && error.response.data.message));
     }
   };
 };
