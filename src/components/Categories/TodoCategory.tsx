@@ -2,27 +2,40 @@ import React, { useState } from "react";
 import { deleteTodoCategory } from "../../redux/actions/todoCategory.actions";
 import { useDispatch } from "react-redux";
 import { BiTrash, BiEdit } from "react-icons/bi";
-import styled from "styled-components";
-import tw from "twin.macro";
 import { ITodoCategoryState } from "@types";
 import Modal from "../../components/Modal/Modal";
 import EditTodoCategory from "./EditTodoCategory";
 
-const TodoCategoryColor = styled.span`
-  ${tw`
-      h-full
-      w-8
-      `}
-  background-color: ${(props) => (props.color ? props.color : "transparent")};
-  &:hover .strike {
-    ${tw`right-0`}
-  }
-`;
-const TodoCategoryHolder = styled.span`
-${tw`font-semibold overflow-hidden relative flex`}
-  &:hover .strike {
-    ${tw`right-0`}
-`;
+interface TodoCategoryColorProps extends React.HTMLAttributes<HTMLSpanElement> {
+  color: string;
+}
+
+const TodoCategoryColor: React.FC<TodoCategoryColorProps> = ({
+  className,
+  style,
+  color,
+  ...rest
+}) => {
+  return (
+    <span
+      className={`h-full w-8 ${className}`}
+      style={{ backgroundColor: color ? color : "transparent", ...style }}
+      {...rest}
+    />
+  );
+};
+
+const TodoCategoryHolder: React.FC<React.HTMLAttributes<HTMLSpanElement>> = ({
+  className,
+  ...rest
+}) => {
+  return (
+    <span
+      className={`font-semibold overflow-hidden relative flex ${className}`}
+      {...rest}
+    />
+  );
+};
 
 interface ITodoCategoryProps {
   todoCategory: ITodoCategoryState;

@@ -38,7 +38,6 @@ const Register: React.FC<IChildProps> = ({ history }) => {
   };
 
   useEffect(() => {
-    console.log(user, "changedUserInfo");
     if (!_.isEmpty(user)) {
       history.push("/");
       window.location.reload();
@@ -97,9 +96,7 @@ const Register: React.FC<IChildProps> = ({ history }) => {
                 />
               </div>
 
-              <PrimaryButton type="submit" className="w-full">
-                Register
-              </PrimaryButton>
+              <PrimaryButton className="w-full">Register</PrimaryButton>
             </fieldset>
           </form>
           <div className="border-t mt-2">

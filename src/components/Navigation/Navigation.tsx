@@ -2,31 +2,42 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../redux/actions/user.actions";
-import styled from "styled-components";
-import tw from "twin.macro";
 import { BiHomeAlt } from "react-icons/bi";
 import { FiSettings, FiLogOut } from "react-icons/fi";
 import CircularProgress from "../CircularProgress/CircularProgress";
 import { RootState } from "src/redux/store/store";
 
-const NavLink = styled(Link)`
-  ${tw`text-white hover:text-white focus:text-white active:text-white hover:no-underline focus:no-underline active:no-underline`}
-`;
-const NavBtn = styled.button`
-  ${tw`w-full hover:text-white focus:text-white active:text-white hover:no-underline focus:no-underline active:no-underline bg-darkblue-800 flex items-center text-white font-light my-2 py-2 px-3 hover:bg-darkblue-600 focus:bg-darkblue-600 rounded-lg`}
-  & svg {
-    ${tw`mr-3 text-bluish-700 text-xl`}
-  }
-`;
-const NavLinkBtn = styled(NavLink)`
-  ${tw`text-white hover:text-white focus:text-white active:text-white hover:no-underline focus:no-underline active:no-underline hover:bg-blue-200 focus:bg-blue-200 rounded-lg bg-darkblue-400 flex px-3 py-2 my-1 font-semibold text-sm`}
-`;
-const NavLinkNav = styled(NavLink)`
-  ${tw`bg-darkblue-800 flex items-center text-white font-light my-2 py-2 px-3 hover:bg-darkblue-600 focus:bg-darkblue-600 rounded-lg`}
-  & svg {
-    ${tw`mr-3 text-bluish-700 text-xl`}
-  }
-`;
+const NavLink: React.FC<any> = ({ className, ...rest }) => (
+  <Link
+    className={`text-white hover:text-white focus:text-white active:text-white hover:no-underline focus:no-underline active:no-underline ${className}`}
+    {...rest}
+  />
+);
+
+const NavBtn: React.FC<React.HTMLAttributes<HTMLButtonElement>> = ({
+  className,
+  ...rest
+}) => (
+  <button
+    className={`
+  w-full hover:text-white focus:text-white active:text-white 
+  hover:no-underline focus:no-underline active:no-underline 
+  bg-darkblue-800 flex items-center text-white font-light my-2 
+  py-2 px-3 hover:bg-darkblue-600 focus:bg-darkblue-600 
+  rounded-lg ${className}`}
+    {...rest}
+  />
+);
+
+const NavLinkNav: React.FC<any> = ({ className, ...rest }) => (
+  <NavLink
+    className={`
+    bg-darkblue-800 flex items-center text-white font-light 
+    my-2 py-2 px-3 hover:bg-darkblue-600 focus:bg-darkblue-600 
+    rounded-lg ${className}`}
+    {...rest}
+  />
+);
 
 interface INavigationProps {
   children: React.ReactNode;
@@ -67,13 +78,13 @@ const Navigation: React.FC<INavigationProps> = ({
                 className="flex items-center text-white font-light"
                 to="/"
               >
-                <BiHomeAlt />
+                <BiHomeAlt className="mr-3 text-bluish-700 text-xl" />
                 Home
               </NavLinkNav>
             </li>
             <li className="w-full nav-item">
               <NavLinkNav className="nav-link" to="/settings">
-                <FiSettings />
+                <FiSettings className="mr-3 text-bluish-700 text-xl" />
                 Settings
               </NavLinkNav>
             </li>
@@ -84,7 +95,7 @@ const Navigation: React.FC<INavigationProps> = ({
                 className="nav-link"
                 onClick={() => dispatch(logoutUser())}
               >
-                <FiLogOut />
+                <FiLogOut className="mr-3 text-bluish-700 text-xl" />
                 Logout
               </NavBtn>
             </li>

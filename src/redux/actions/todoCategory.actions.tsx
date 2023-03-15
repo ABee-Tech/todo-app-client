@@ -42,7 +42,7 @@ export const createTodoCategory = (
         },
       };
       const res = await axiosInstance.post(
-        process.env.REACT_APP_API_URL + "/todo_categories",
+        import.meta.env.VITE_API_URL + "/todo_categories",
         todoCategoryData,
         config
       );
@@ -72,7 +72,7 @@ export const fetchTodoCategories = () => {
         },
       };
       const { data } = await axiosInstance.get(
-        process.env.REACT_APP_API_URL + "/todo_categories",
+        import.meta.env.VITE_API_URL + "/todo_categories",
         config
       );
 

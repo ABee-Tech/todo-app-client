@@ -9,12 +9,12 @@ import Modal from "../Modal/Modal";
 import AddTodoCategory from "./AddTodoCategory";
 import { ITodoCategoryState } from "@types";
 import { RootState } from "../../redux/store/store";
-import styled from "styled-components";
-import tw from "twin.macro";
 
-const HCategoryScrollContainer = styled.div`
-  ${tw`flex overflow-x-auto pb-4`}
-`;
+const HCategoryScrollContainer: React.FC<
+  React.HTMLAttributes<HTMLDivElement>
+> = ({ className, ...rest }) => (
+  <div className={`flex overflow-x-auto pb-4 ${className}`} {...rest} />
+);
 
 function AllTodoCategories() {
   const [showModal, setShowModal] = useState(false);

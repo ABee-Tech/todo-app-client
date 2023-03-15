@@ -3,23 +3,54 @@ import { deleteTodo, completeTodo } from "../../redux/actions/todo.actions";
 import { useDispatch } from "react-redux";
 import { BsCheckLg } from "react-icons/bs";
 import { BiTrash, BiEdit } from "react-icons/bi";
-import styled from "styled-components";
-import tw from "twin.macro";
 import { ITodoState } from "@types";
 import Modal from "../Modal/Modal";
 import EditTodo from "./EditTodo";
 
-const TodoHolder = styled.span`
-${tw`font-semibold overflow-hidden relative flex items-center`}
-  &:hover .strike {
-    ${tw`right-0`}
-`;
+const TodoHolder: React.FC<React.HTMLAttributes<HTMLSpanElement>> = ({
+  className,
+  ...rest
+}) => {
+  return (
+    <span
+      className={`font-semibold overflow-hidden relative flex items-center ${className}`}
+      {...rest}
+    />
+  );
+};
 
-const CheckCircle = styled.div<{ completed: boolean; categoryColor: string }>`
-  ${tw`h-5 w-5 rounded-full flex justify-center items-center mr-2`} border: 2.5px solid 
-${(props) => props.categoryColor};
-  background-color: ${(props) => props.completed && props.categoryColor};
-`;
+// const CheckCircle = styled.div<{ completed: boolean; categoryColor: string }>`
+//   ${tw`h-5 w-5 rounded-full flex justify-center items-center mr-2`} border: 2.5px solid
+// ${(props) => props.categoryColor};
+//   background-color: ${(props) => props.completed && props.categoryColor};
+// `;
+
+interface TodoCategoryColorProps extends React.HTMLAttributes<HTMLSpanElement> {
+  completed: boolean;
+  categoryColor: string;
+}
+
+const CheckCircle: React.FC<TodoCategoryColorProps> = ({
+  className,
+  style,
+  completed,
+  categoryColor,
+  ...rest
+}) => {
+  console.log(categoryColor);
+  return (
+    <div
+      className={`h-5 w-5 rounded-full flex justify-center items-center mr-2 ${className}`}
+      style={{
+        border: `2.5px solid ${categoryColor ? categoryColor : "transparent"}`,
+        backgroundColor:
+          completed && categoryColor ? categoryColor : "transparent",
+        ...style,
+      }}
+      {...rest}
+    />
+  );
+};
 
 interface ITodoProps {
   todo: ITodoState;
