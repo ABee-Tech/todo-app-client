@@ -63,7 +63,15 @@ const Navigation: React.FC<INavigationProps> = ({
           <NavLink to="/profile">
             <div className="text-md text-white w-full flex items-center h-24">
               <CircularProgress progress={70}>
-                <img src={defaultProfileImg} className="object-cover" />
+                <img
+                  src={
+                    "https://ui-avatars.com/api/?name=" +
+                    userData?.name?.replace(" ", "+") +
+                    "&size=" +
+                    110
+                  }
+                  className="object-cover"
+                />
               </CircularProgress>
             </div>
             <div className="text-md text-white w-full flex justify-center flex-col h-32">

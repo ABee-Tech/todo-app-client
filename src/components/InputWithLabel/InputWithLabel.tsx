@@ -10,9 +10,14 @@ interface IInputWithLabelProps {
 }
 
 const InputWithLabel = React.forwardRef<any, IInputWithLabelProps>(
-  ({ label = "", onChangeText, errorText, ...props }, ref) => {
+  (
+    { label = "", onChangeText, errorText, containerClassName, ...props },
+    ref
+  ) => {
     return (
-      <div className="w-full flex flex-col mb-2 relative form-control input-control">
+      <div
+        className={`flex flex-col mb-2 relative form-control input-control ${containerClassName}`}
+      >
         <input
           {...props}
           className="flex-grow border border-gray-400 rounded-lg text-md px-2.5 pb-1 pt-5 outline-1 outline-blue-100 h-12"

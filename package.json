@@ -20,6 +20,7 @@
     "react-dom": "^18.1.0",
     "react-hook-form": "^7.24.0",
     "react-icons": "^4.3.1",
+    "react-image-crop": "^10.0.9",
     "react-query": "^3.34.8",
     "react-redux": "^7.2.1",
     "react-router-dom": "^5.2.0",
