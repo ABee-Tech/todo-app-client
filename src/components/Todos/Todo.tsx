@@ -37,7 +37,6 @@ const CheckCircle: React.FC<TodoCategoryColorProps> = ({
   categoryColor,
   ...rest
 }) => {
-  console.log(categoryColor);
   return (
     <div
       className={`h-5 w-5 rounded-full flex justify-center items-center mr-2 ${className}`}

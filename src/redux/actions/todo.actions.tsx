@@ -23,6 +23,8 @@ import {
 } from "../reducers/todo.reducers";
 import { fetchTodoCategories } from "./todoCategory.actions";
 import { toast } from "react-toastify";
+import { AxiosRequestConfig } from "axios";
+import { fixQuery } from "@utils/helper";
 
 //Create todo
 
@@ -47,7 +49,7 @@ export const createTodo = (todoDispatchActionData: ITodoDispatchActionData) => {
     } catch (error: any) {
       onError && onError(error);
       toast.error(`Sorry! ${error.response && error.response.data.message}`);
-      dispatch(todoCreateFail(error.response && error.response.data.message));
+      dispatch(todoCreateFail(error.response && error.response.data));
     }
   };
 };
@@ -79,30 +81,32 @@ export const updateTodo = (todoDispatchActionData: ITodoDispatchActionData) => {
     } catch (error: any) {
       onError && onError(error);
       toast.error(`Sorry! ${error.response && error.response.data.message}`);
-      dispatch(todoUpdateFail(error.response && error.response.data.message));
+      dispatch(todoUpdateFail(error.response && error.response.data));
     }
   };
 };
 
 //Fetch all todos
 
-export const fetchTodos = () => {
+export const fetchTodos = (query: {
+  keyword: string;
+  category_id?: string;
+}) => {
   return async (dispatch: Dispatch) => {
     try {
       dispatch(todoListFetchRequest());
 
-      const config = {
+      const config: AxiosRequestConfig = {
         headers: {
           "Content-Type": "application/json",
         },
+        params: fixQuery(query),
       };
       const { data } = await axiosInstance.get("/todos", config);
 
       dispatch(todoListFetchSuccess(data));
     } catch (error: any) {
-      dispatch(
-        todoListFetchFail(error.response && error.response.data.message)
-      );
+      dispatch(todoListFetchFail(error.response && error.response.data));
     }
   };
 };
@@ -123,7 +127,7 @@ export const deleteTodo = (id: string) => {
       dispatch(todoDeleteSuccess(id));
       dispatch<any>(fetchTodoCategories());
     } catch (error: any) {
-      dispatch(todoDeleteFail(error.response && error.response.data.message));
+      dispatch(todoDeleteFail(error.response && error.response.data));
     }
   };
 };
@@ -143,7 +147,7 @@ export const fetchTodo = (id: string) => {
 
       dispatch(todoSuccess(data));
     } catch (error: any) {
-      dispatch(todoFail(error.response && error.response.data.message));
+      dispatch(todoFail(error.response && error.response.data));
     }
   };
 };
@@ -168,7 +172,7 @@ export const completeTodo = (id: string, completed: boolean) => {
       dispatch(todoCompleteSuccess(data));
       dispatch<any>(fetchTodoCategories());
     } catch (error: any) {
-      dispatch(todoCompleteFail(error.response && error.response.data.message));
+      dispatch(todoCompleteFail(error.response && error.response.data));
     }
   };
 };

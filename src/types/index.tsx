@@ -1,3 +1,8 @@
+export interface IApiError {
+  status: number;
+  message: string;
+}
+
 export interface IDropdownSelectOption {
   value: string;
   label: string;
@@ -27,6 +32,10 @@ export interface ITodoCategoryState {
   color: string;
   createdBy: string;
   isDefault: boolean;
+}
+
+export interface ISelectedTodoCategoryState {
+  selected_category_id: string | undefined;
 }
 
 // Dispatch Prop

@@ -1,28 +1,28 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ITodoState } from "../../types";
+import { IApiError, ITodoState } from "../../types";
 
 interface ITodoSliceState {
   data: Partial<ITodoState>;
   loading: boolean;
-  error: string;
+  error: Partial<IApiError>;
 }
 
 interface ITodoListSliceState {
   data: ITodoState[];
   loading: boolean;
-  error: string;
+  error: Partial<IApiError>;
 }
 
 const todoInitialState: ITodoSliceState = {
   data: {},
   loading: false,
-  error: "",
+  error: {},
 };
 
 const todoListInitialState: ITodoListSliceState = {
   data: [],
   loading: false,
-  error: "",
+  error: {},
 };
 
 export const todoSlice = createSlice({
@@ -35,8 +35,9 @@ export const todoSlice = createSlice({
     todoSuccess: (state, action: PayloadAction<ITodoState>) => {
       state.loading = false;
       state.data = action.payload;
+      state.error = {};
     },
-    todoFail: (state, action: PayloadAction<string>) => {
+    todoFail: (state, action: PayloadAction<IApiError>) => {
       state.loading = false;
       state.error = action.payload;
     },
@@ -54,8 +55,9 @@ export const todoListSlice = createSlice({
     todoListFetchSuccess: (state, action: PayloadAction<ITodoState[]>) => {
       state.loading = false;
       state.data = action.payload;
+      state.error = {};
     },
-    todoListFetchFail: (state, action: PayloadAction<string>) => {
+    todoListFetchFail: (state, action: PayloadAction<IApiError>) => {
       state.loading = false;
       state.error = action.payload;
     },
@@ -67,7 +69,7 @@ export const todoListSlice = createSlice({
       state.loading = false;
       state.data = [...state.data, action.payload];
     },
-    todoCreateFail: (state, action: PayloadAction<string>) => {
+    todoCreateFail: (state, action: PayloadAction<IApiError>) => {
       state.loading = false;
       state.error = action.payload;
     },
@@ -81,7 +83,7 @@ export const todoListSlice = createSlice({
         todo._id === action.payload._id ? action.payload : todo
       );
     },
-    todoUpdateFail: (state, action: PayloadAction<string>) => {
+    todoUpdateFail: (state, action: PayloadAction<IApiError>) => {
       state.loading = false;
       state.error = action.payload;
     },
@@ -95,7 +97,7 @@ export const todoListSlice = createSlice({
         todo._id === action.payload._id ? action.payload : todo
       );
     },
-    todoCompleteFail: (state, action: PayloadAction<string>) => {
+    todoCompleteFail: (state, action: PayloadAction<IApiError>) => {
       state.loading = false;
       state.error = action.payload;
     },
@@ -107,7 +109,7 @@ export const todoListSlice = createSlice({
       state.loading = false;
       state.data = state?.data?.filter((todo) => todo._id !== action.payload);
     },
-    todoDeleteFail: (state, action: PayloadAction<string>) => {
+    todoDeleteFail: (state, action: PayloadAction<IApiError>) => {
       state.loading = false;
       state.error = action.payload;
     },
