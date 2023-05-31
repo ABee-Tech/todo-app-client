@@ -80,6 +80,10 @@ export const loginUser = (email: string, password: string) => {
       );
       localStorage.setItem("userAuthData", JSON.stringify(data));
 
+      axiosInstance.defaults.headers.common[
+        "authorization"
+      ] = `Bearer ${data.token}`;
+
       dispatch(userLoginSuccess(data));
     } catch (error: any) {
       dispatch(userLoginFail(error.response.data.message));

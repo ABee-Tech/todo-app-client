@@ -1,17 +1,18 @@
 import FormInput from "../FormInput/FormInput";
-import React, { InputHTMLAttributes, useRef } from "react";
+import React, { useRef } from "react";
 import {
   Heading,
   HeadingWithoutAction,
   PrimaryButton,
 } from "../../styles/styles";
 import { useForm } from "react-hook-form";
-import { RootStateOrAny, useDispatch } from "react-redux";
+import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 import { Dispatch } from "redux";
-import { IUserDispatchActionData, IUserState } from "@types";
+import { IImage, IUserDispatchActionData, IUserState } from "@types";
 import { BsCamera } from "react-icons/bs";
 import { updateProfilePicture } from "src/redux/actions/user.actions";
+import { RootState } from "src/redux/store/store";
 
 interface IProfileFormProps {
   formDispatchAction: (
@@ -53,6 +54,18 @@ const ProfileForm: React.FC<IProfileFormProps> = (props: IProfileFormProps) => {
     }
     console.log(event?.target?.files?.[0]?.name);
   };
+
+  const { data: userData } = useSelector((state: RootState) => state.user);
+  const avatarURL =
+    "https://ui-avatars.com/api/?name=" +
+    userData?.name?.replace(" ", "+") +
+    "&size=" +
+    110;
+  const profilePicture = userData
+    ? import.meta.env.VITE_UPLOADS_URL +
+      "/" +
+      (userData?.profile_picture as IImage)?.img?.imageUrl
+    : avatarURL;
   return (
     <div>
       <HeadingWithoutAction>
@@ -66,13 +79,8 @@ const ProfileForm: React.FC<IProfileFormProps> = (props: IProfileFormProps) => {
           >
             <div className="w-full h-full bg-gray-200 rounded-full flex items-center justify-center overflow-hidden">
               <img
-                src={
-                  "https://ui-avatars.com/api/?name=" +
-                  state?.name?.replace(" ", "+") +
-                  "&size=" +
-                  110
-                }
-                className="object-cover"
+                src={profilePicture}
+                className="object-cover h-full w-full"
               />
             </div>
             <div className="absolute bottom-0 right-0">

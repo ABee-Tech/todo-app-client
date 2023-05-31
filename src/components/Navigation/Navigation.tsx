@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logoutUser } from "../../redux/actions/user.actions";
+import { fetchUser, logoutUser } from "../../redux/actions/user.actions";
 import { BiHomeAlt } from "react-icons/bi";
 import { FiSettings, FiLogOut } from "react-icons/fi";
 import CircularProgress from "../CircularProgress/CircularProgress";
 import { RootState } from "src/redux/store/store";
+import { IImage } from "@types";
 
 const NavLink: React.FC<any> = ({ className, ...rest }) => (
   <Link
@@ -48,13 +49,23 @@ const Navigation: React.FC<INavigationProps> = ({
   children,
   className,
 }: INavigationProps) => {
-  const defaultProfileImg = "./assets/img/portrait.jpg";
-
   const dispatch = useDispatch();
 
-  const { data: userData, loading } = useSelector(
-    (state: RootState) => state.user
-  );
+  const { data: userData } = useSelector((state: RootState) => state.user);
+  const avatarURL =
+    "https://ui-avatars.com/api/?name=" +
+    userData?.name?.replace(" ", "+") +
+    "&size=" +
+    110;
+  const profilePicture = userData
+    ? import.meta.env.VITE_UPLOADS_URL +
+      "/" +
+      (userData?.profile_picture as IImage)?.img?.imageUrl
+    : avatarURL;
+
+  useEffect(() => {
+    dispatch(fetchUser());
+  }, [dispatch]);
 
   return (
     <div className="w-screen h-screen flex flex-1 row">
@@ -64,13 +75,8 @@ const Navigation: React.FC<INavigationProps> = ({
             <div className="text-md text-white w-full flex items-center h-24">
               <CircularProgress progress={70}>
                 <img
-                  src={
-                    "https://ui-avatars.com/api/?name=" +
-                    userData?.name?.replace(" ", "+") +
-                    "&size=" +
-                    110
-                  }
-                  className="object-cover"
+                  src={profilePicture}
+                  className="object-cover h-full w-full"
                 />
               </CircularProgress>
             </div>

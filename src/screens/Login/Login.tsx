@@ -40,7 +40,6 @@ const Login: React.FC<IChildProps> = ({ history }) => {
   useEffect(() => {
     if (!_.isEmpty(user)) {
       history.push("/");
-      window.location.reload();
     }
   }, [user, history]);
 
