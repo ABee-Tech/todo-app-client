@@ -1,5 +1,6 @@
 import axios, { AxiosError, AxiosRequestConfig } from "axios";
 import { toast } from "react-toastify";
+import { StaticRouter } from "react-router-dom";
 
 const headers: AxiosRequestConfig["headers"] = {
   "Access-Control-Allow-Origin": "*",
@@ -26,6 +27,10 @@ axiosInstance.interceptors.response.use(
       toast.error(
         `Sorry! Something went wrong on server. We are actively working to solve it.`
       );
+    }
+    if (status === 401) {
+      localStorage.clear();
+      window.location.href = "/login";
     }
     return Promise.reject(error);
   }
