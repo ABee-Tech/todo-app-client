@@ -68,7 +68,7 @@ const ProfileForm: React.FC<IProfileFormProps> = (props: IProfileFormProps) => {
     : avatarURL;
   return (
     <div>
-      <HeadingWithoutAction>
+      <HeadingWithoutAction className="mb-4">
         <Heading className="uppercase">Profile</Heading>
       </HeadingWithoutAction>
       <form>

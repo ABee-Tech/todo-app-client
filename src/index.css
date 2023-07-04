@@ -84,6 +84,11 @@ body {
   overflow-x: hidden;
 }
 
+html[class='dark'] body {
+  color: #f4f6fd;
+  background-color: #0e1e54;
+}
+
 [tabindex="-1"]:focus:not(:focus-visible) {
   outline: 0 !important;
 }

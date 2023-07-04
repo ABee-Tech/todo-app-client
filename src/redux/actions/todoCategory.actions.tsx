@@ -18,12 +18,7 @@ import { toast } from "react-toastify";
 import { ITodoCategoryDispatchActionData } from "@types";
 import { fetchTodos } from "./todo.actions";
 
-interface ITodoCategory {
-  name?: string;
-  color?: string;
-}
-
-//Create todoCategory
+// Create todo category
 
 export const createTodoCategory = (
   todoCategoryDispatchActionData: ITodoCategoryDispatchActionData
@@ -60,7 +55,7 @@ export const createTodoCategory = (
   };
 };
 
-//Fetch all todo_categories
+// Fetch all todo categories
 
 export const fetchTodoCategories = () => {
   return async (dispatch: Dispatch) => {
@@ -83,7 +78,7 @@ export const fetchTodoCategories = () => {
   };
 };
 
-//delete a todoCategory
+// Delete a todo category
 
 export const deleteTodoCategory = (id: string) => {
   return async (dispatch: Dispatch) => {
@@ -105,7 +100,7 @@ export const deleteTodoCategory = (id: string) => {
   };
 };
 
-//UPDATE TODO_CATEGORY
+// Update a todo category
 
 export const updateTodoCategory = (
   todoDispatchActionData: ITodoCategoryDispatchActionData

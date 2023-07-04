@@ -76,7 +76,7 @@ const Todo: React.FC<ITodoProps> = ({
   return (
     <div
       className={
-        "width-full bg-slate-50 flex justify-between rounded-lg shadow-md hover:shadow-lg ease-in duration-150 my-2" +
+        "width-full bg-slate-50 dark:bg-slate-900 flex justify-between rounded-lg shadow-md hover:shadow-lg ease-in duration-150 my-2" +
         " " +
         className
       }
@@ -93,11 +93,15 @@ const Todo: React.FC<ITodoProps> = ({
             completed={isChecked}
             categoryColor={todo?.category?.color}
           >
-            {isChecked && <BsCheckLg className={`text-xs text-slate-50`} />}
+            {isChecked && (
+              <BsCheckLg
+                className={`text-xs text-slate-50 dark:text-slate-900`}
+              />
+            )}
           </CheckCircle>
           <span
             className={`font-semibold overflow-hidden relative flex items-center ${
-              isChecked && `text-grey-500`
+              isChecked && `text-grey-500 dark:text-grey-400`
             }`}
           >
             {isChecked ? <del>{todo.title}</del> : todo.title}

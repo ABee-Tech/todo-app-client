@@ -26,7 +26,7 @@ import { toast } from "react-toastify";
 import { AxiosRequestConfig } from "axios";
 import { fixQuery } from "@utils/helper";
 
-//Create todo
+// Create a todo
 
 export const createTodo = (todoDispatchActionData: ITodoDispatchActionData) => {
   return async (dispatch: Dispatch) => {
@@ -54,7 +54,7 @@ export const createTodo = (todoDispatchActionData: ITodoDispatchActionData) => {
   };
 };
 
-//Update todo
+// Update todo
 
 export const updateTodo = (todoDispatchActionData: ITodoDispatchActionData) => {
   return async (dispatch: Dispatch) => {
@@ -86,10 +86,10 @@ export const updateTodo = (todoDispatchActionData: ITodoDispatchActionData) => {
   };
 };
 
-//Fetch all todos
+// Fetch all todos
 
-export const fetchTodos = (query: {
-  keyword: string;
+export const fetchTodos = (query?: {
+  keyword?: string;
   category_id?: string;
 }) => {
   return async (dispatch: Dispatch) => {
@@ -100,7 +100,7 @@ export const fetchTodos = (query: {
         headers: {
           "Content-Type": "application/json",
         },
-        params: fixQuery(query),
+        params: query ? fixQuery(query) : undefined,
       };
       const { data } = await axiosInstance.get("/todos", config);
 
@@ -111,7 +111,7 @@ export const fetchTodos = (query: {
   };
 };
 
-//delete a todo
+// Delete a todo
 
 export const deleteTodo = (id: string) => {
   return async (dispatch: Dispatch) => {
@@ -132,7 +132,7 @@ export const deleteTodo = (id: string) => {
   };
 };
 
-//Fetch a signle todo
+// Fetch a signle todo
 export const fetchTodo = (id: string) => {
   return async (dispatch: Dispatch) => {
     try {
@@ -152,7 +152,7 @@ export const fetchTodo = (id: string) => {
   };
 };
 
-//COMPLETE TODO
+// Complete a todo
 
 export const completeTodo = (id: string, completed: boolean) => {
   return async (dispatch: Dispatch) => {

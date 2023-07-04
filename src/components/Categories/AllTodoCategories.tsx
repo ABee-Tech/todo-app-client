@@ -27,7 +27,7 @@ function AllTodoCategories() {
   }, [dispatch]);
   // if (loading) return <Loading className="text-grey-500" />;
   return (
-    <div className="pb-4 border-b-gray-300 border-b mb-4">
+    <div className="pb-4 border-b-gray-300 dark:border-b-darkblue-300 border-b mb-4">
       <Modal title="Add Todo Category" open={showModal} setOpen={setShowModal}>
         <AddTodoCategory setOpen={setShowModal} />
       </Modal>

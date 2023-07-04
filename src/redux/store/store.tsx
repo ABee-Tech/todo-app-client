@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { todoListSlice, todoSlice } from "../reducers/todo.reducers";
+import { settingSlice } from "../reducers/setting.reducers";
 import { userSlice } from "../reducers/user.reducers";
 import { selectedTodoCategorySlice } from "../reducers/selectedTodoCategory.reducers";
 import {
@@ -9,6 +10,7 @@ import {
 
 export const store = configureStore({
   reducer: {
+    setting: settingSlice.reducer,
     user: userSlice.reducer,
     todoList: todoListSlice.reducer,
     todo: todoSlice.reducer,

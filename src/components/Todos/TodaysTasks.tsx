@@ -81,7 +81,7 @@ function TodaysTasks() {
         <Heading className="uppercase">Today's Tasks</Heading>
         <div className="flex flex-row">
           <SearchInput
-            containerClassName="mr-4"
+            containerClassName="mr-4 dark:bg-slate-700"
             value={filters.keyword}
             onChange={(e) =>
               setFilters((prevState) => ({

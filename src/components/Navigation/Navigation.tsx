@@ -70,7 +70,7 @@ const Navigation: React.FC<INavigationProps> = ({
   return (
     <div className="w-screen h-screen flex flex-1 row">
       <header>
-        <div className="w-48 h-screen bg-darkblue-900 p-5 flex flex-col fixed">
+        <div className="w-48 h-screen bg-darkblue-900 dark:bg-black p-5 flex flex-col fixed">
           <NavLink to="/profile">
             <div className="text-md text-white w-full flex items-center h-24">
               <CircularProgress progress={70}>
@@ -117,7 +117,9 @@ const Navigation: React.FC<INavigationProps> = ({
         </div>
       </header>
       <div className="w-screen pl-48">
-        <div className={`px-5 py-4 h-full ${className}`}>{children}</div>
+        <div className={`px-5 py-4 h-full dark:bg-darkblue-900 ${className}`}>
+          {children}
+        </div>
       </div>
     </div>
   );

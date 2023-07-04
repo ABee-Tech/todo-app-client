@@ -1,6 +1,8 @@
 import React, { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { GrClose } from "react-icons/gr";
+import { AiOutlineClose } from "react-icons/ai";
+import { useSelector } from "react-redux";
+import { RootState } from "src/redux/store/store";
 
 interface IModalProps {
   title?: string;
@@ -17,6 +19,9 @@ function Modal({
   open = true,
   setOpen,
 }: IModalProps) {
+  const {
+    data: { theme },
+  } = useSelector((state: RootState) => state.setting);
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog
@@ -48,7 +53,7 @@ function Modal({
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
             <div
-              className="relative bg-white rounded-lg max-w-md px-5 py-3"
+              className="relative bg-slate-50 dark:bg-slate-800 rounded-lg max-w-md px-5 py-3"
               style={{
                 width: "500px",
               }}
@@ -57,9 +62,9 @@ function Modal({
                 <Dialog.Title className="font-bold text-lg m-0">
                   {title}
                 </Dialog.Title>
-                <GrClose
+                <AiOutlineClose
                   onClick={() => setOpen(false)}
-                  className="cursor-pointer"
+                  className="cursor-pointer dark:text-slate-50"
                 />
               </div>
 

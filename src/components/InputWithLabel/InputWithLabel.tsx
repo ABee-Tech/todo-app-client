@@ -20,7 +20,7 @@ const InputWithLabel = React.forwardRef<any, IInputWithLabelProps>(
       >
         <input
           {...props}
-          className="flex-grow border border-gray-400 rounded-lg text-md px-2.5 pb-1 pt-5 outline-1 outline-blue-100 h-12"
+          className="flex-grow border border-gray-400 dark:bg-slate-700 rounded-lg text-md px-2.5 pb-1 pt-5 outline-1 outline-blue-100 h-12"
           placeholder=" "
           ref={ref}
         />

@@ -52,24 +52,41 @@ export interface ISelectedTodoCategoryState {
 // Dispatch Prop
 export interface ITodoDispatchActionData {
   data: Partial<ITodoState>;
-  onSuccess: (res: any) => void;
-  onError: (err: any) => void;
+  onSuccess?: (res: any) => void;
+  onError?: (err: any) => void;
 }
 
 export interface ITodoCategoryDispatchActionData {
   data: Partial<ITodoCategoryState>;
-  onSuccess: (res: any) => void;
-  onError: (err: any) => void;
+  onSuccess?: (res: any) => void;
+  onError?: (err: any) => void;
 }
 
 export interface IUserDispatchActionData {
   data: Partial<IUserState>;
-  onSuccess: (res: any) => void;
-  onError: (err: any) => void;
+  onSuccess?: (res: any) => void;
+  onError?: (err: any) => void;
 }
 
 export interface IProfilePictureUploadDispatchActionData {
   data: FormData;
-  onSuccess: (res: any) => void;
-  onError: (err: any) => void;
+  onSuccess?: (res: any) => void;
+  onError?: (err: any) => void;
+}
+
+export interface ISettingDispatchActionData {
+  data: Partial<ISettingState>;
+  onSuccess?: (res: any) => void;
+  onError?: (err: any) => void;
+}
+
+export enum ETheme {
+  DARK = "dark",
+  LIGHT = "light",
+}
+
+export interface ISettingState {
+  _id: string;
+  userId: string;
+  theme: ETheme;
 }

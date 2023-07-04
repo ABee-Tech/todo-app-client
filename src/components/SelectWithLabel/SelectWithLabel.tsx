@@ -60,7 +60,7 @@ const SelectWithLabel = React.forwardRef(
             <div className="relative  h-full">
               <div className="relative w-full h-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 select-control">
                 <Combobox.Input
-                  className="w-full h-full border-none px-2.5 pb-1 pt-5 leading-5 text-gray-900 focus:ring-0 rounded-lg outline-1 outline-blue-100"
+                  className="w-full h-full border-none px-2.5 pb-1 pt-5 leading-5 text-gray-900 dark:bg-slate-700 focus:ring-0 rounded-lg outline-1 outline-blue-100"
                   displayValue={(person: any) => person?.label || ""}
                   onChange={(event) => setQuery(event.target.value)}
                   placeholder=" "
