@@ -54,7 +54,7 @@ Full tech stack [here](/techstack.md)
 # Tech Stack File
 ![](https://img.stackshare.io/repo.svg "repo") [ABee-Tech/todo-app-client](https://github.com/ABee-Tech/todo-app-client)![](https://img.stackshare.io/public_badge.svg "public")
 <br/><br/>
-|37<br/>Tools used|12/22/23 <br/>Report generated|
+|37<br/>Tools used|01/05/24 <br/>Report generated|
 |------|------|
 </div>
 
