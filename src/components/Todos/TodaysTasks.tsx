@@ -99,25 +99,21 @@ function TodaysTasks() {
           <LinkButton onClick={() => setShowModal(true)}>+ Add Todo</LinkButton>
         </div>
       </HeadingWithAction>
-      {loading ? (
-        <Loading className="text-grey-500" />
-      ) : (
-        <div className="overflow-auto">
-          {error.status !== 404 && todos && todos.length ? (
-            todos.map((todo: ITodoState) => {
-              return <Todo key={todo._id} todo={todo} />;
-            })
-          ) : (
-            <InfoMessage
-              message={
-                error.status === 404
-                  ? "Sorry, no task found with '" + filters.keyword + "'"
-                  : "No tasks?? Hurray!!"
-              }
-            />
-          )}
-        </div>
-      )}
+      <div className="overflow-auto">
+        {error.status !== 404 && todos && todos.length ? (
+          todos.map((todo: ITodoState) => {
+            return <Todo key={todo._id} todo={todo} />;
+          })
+        ) : (
+          <InfoMessage
+            message={
+              error.status === 404
+                ? "Sorry, no task found with '" + filters.keyword + "'"
+                : "No tasks?? Hurray!!"
+            }
+          />
+        )}
+      </div>
     </div>
   );
 }

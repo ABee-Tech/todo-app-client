@@ -6,7 +6,7 @@ import Loading from "../../components/Loading/Loading";
 import { useForm } from "react-hook-form";
 import _ from "lodash";
 import FormInput from "../../components/FormInput/FormInput";
-import { PrimaryButton } from "../../styles/styles";
+import { PrimaryButton, SecondaryButton } from "../../styles/styles";
 import { Link } from "react-router-dom";
 import ToastContainer from "../../components/ToastContainer/ToastContainer";
 import { RouteComponentProps } from "react-router-dom";
@@ -37,6 +37,10 @@ const Login: React.FC<IChildProps> = ({ history }) => {
     dispatch(loginUser(email, password));
   };
 
+  const onRegisterClickHandler = () => {
+    history.push("/register");
+  };
+
   useEffect(() => {
     if (!_.isEmpty(user)) {
       history.push("/");
@@ -44,67 +48,101 @@ const Login: React.FC<IChildProps> = ({ history }) => {
   }, [user, history]);
 
   return (
-    <div className="row h-screen flex items-center justify-center bg-bluish-200">
+    <div className="row h-screen flex items-center justify-center">
       <ToastContainer />
-      <div className="col-lg-6 col-md-6 m-auto w-3/4 md:w-2/4 lg:w-1/3 bg-white rounded-xl shadow-lg relative overflow-hidden">
-        {loading && (
-          <div className="absolute left-0 top-0 w-full h-full flex items-center justify-center backdrop-blur-sm z-50">
-            <Loading />
-          </div>
-        )}
-        <div className="container">
-          {error && <ErrorMessage message={error} />}
-          <div className="border-b">
-            <h1 className="text-center font-bold text-2xl my-4">
-              <span className="text-green-500">TO</span>
-              <span>DO</span> <span className="text-orange-300">+</span>
-            </h1>
-          </div>
-          <form
-            onSubmit={handleSubmit(submitFormHandler)}
-            className="container my-4"
-          >
-            <h1 className="font-light text-center text-2xl mb-3">Login</h1>
-            <fieldset className="mb-5">
-              <div className="form-group">
-                <FormInput
-                  type="email"
-                  id="email"
-                  placeholder="Email"
-                  autoComplete="on"
-                  errorText={errors?.email?.message}
-                  {...register("email", {
-                    required: "Email is required",
-                    pattern: {
-                      value: /^\S+@\S+$/i,
-                      message: "Email is invalid",
-                    },
-                  })}
-                />
-              </div>
-              <div className="form-group">
-                <FormInput
-                  type="password"
-                  id="password"
-                  placeholder="Password"
-                  autoComplete="on"
-                  errorText={errors?.password?.message}
-                  {...register("password", {
-                    required: "Password is required",
-                  })}
-                />
-              </div>
+      <section className="h-full bg-green-50 dark:bg-neutral-700 w-full">
+        <div className="container h-full p-10">
+          <div className="g-6 flex h-full flex-wrap items-center justify-center text-neutral-800 dark:text-neutral-200">
+            <div className="w-full">
+              <div className="block rounded-lg bg-white shadow-lg dark:bg-neutral-800">
+                <div className="g-0 lg:flex lg:flex-wrap">
+                  {/* <!-- Left column container--> */}
+                  <div className="px-4 md:px-0 lg:w-6/12">
+                    <div className="md:mx-6 md:p-12">
+                      {/* <!--Logo--> */}
+                      <div className="text-center">
+                        <img
+                          className="mx-auto w-48"
+                          src="/logo.png"
+                          alt="logo"
+                        />
+                        <h4 className="mb-12 mt-1 pb-1 text-xl font-semibold">
+                          Tusky
+                        </h4>
+                      </div>
 
-              <PrimaryButton className="w-full">Login</PrimaryButton>
-            </fieldset>
-          </form>
-          <div className="border-t mt-2">
-            <p className="text-center text-gray-500 py-4">
-              Don't have an account? <Link to="/register">Register</Link>
-            </p>
+                      <form onSubmit={handleSubmit(submitFormHandler)}>
+                        <p className="mb-4">Please login to your account</p>
+                        {/* <!--Username input--> */}
+                        <FormInput
+                          type="text"
+                          label="Username"
+                          className="mb-4"
+                          {...register("email", {
+                            required: "Email is required",
+                            pattern: {
+                              value: /^\S+@\S+$/i,
+                              message: "Email is invalid",
+                            },
+                          })}
+                        ></FormInput>
+
+                        {/* <!--Password input--> */}
+                        <FormInput
+                          type="password"
+                          label="Password"
+                          className="mb-4"
+                          {...register("password", {
+                            required: "Password is required",
+                          })}
+                        ></FormInput>
+
+                        {/* <!--Submit button--> */}
+                        <div className="mb-12 pb-1 pt-1 text-center">
+                          <PrimaryButton className="w-full" type="submit">
+                            Login
+                          </PrimaryButton>
+
+                          {/* <!--Forgot password link--> */}
+                          <a href="#!">Forgot password?</a>
+                        </div>
+
+                        {/* <!--Register button--> */}
+                        <div className="flex items-center justify-between pb-6">
+                          <p className="mb-0 mr-2">Don't have an account?</p>
+                          <SecondaryButton
+                            className="inline-block rounded border-2 px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal transition duration-150 ease-in-out focus:outline-none focus:ring-0"
+                            onClick={onRegisterClickHandler}
+                          >
+                            Register
+                          </SecondaryButton>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+
+                  {/* <!-- Right column container with background and description--> */}
+                  <div
+                    className="flex items-center rounded-b-lg lg:w-6/12 lg:rounded-r-lg lg:rounded-bl-none"
+                    style={{
+                      background:
+                        "linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593)",
+                    }}
+                  >
+                    <div className="px-4 py-6 text-white md:mx-6 md:p-12 w-full">
+                      <ol className="text-3xl flex flex-col items-center w-full">
+                        <li className="mb-4">⏰ Reminders ⏰</li>
+                        <li className="mb-4">🪄 Todoist 🪄</li>
+                        <li className="mb-4">💾 Todo Cloud 💾</li>
+                      </ol>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };
